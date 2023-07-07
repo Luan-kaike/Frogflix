@@ -1,9 +1,8 @@
 import React from 'react';
+import { Routes } from './routes/index';
 
 export const App = () => {
   return (
-    <div className="App">
-      oi
-    </div>
+    <Routes/>
   )
 }
