@@ -1,0 +1,59 @@
+.Login{
+  display: flex;
+  background-color: #555;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: max(200px,100vw);
+}
+
+
+
+.Login > form{
+  display: flex;
+  flex-direction: column;
+  width: max(200px,35vw);
+  background-color: #000;
+  margin: 5vw;
+  padding: 5vw;
+  padding-top: 2vw;
+  border-radius: 50px;
+}
+
+.Login > form > label{
+  margin: .5vw;
+}
+
+.Login > form > label > p{
+  color: #fff;
+  font-size: max(10px,2.5vw);
+  margin-bottom: max(10px,2.5vw);
+}
+
+.Login > form > label > input{
+  border-radius: 5px;
+  color: #000;
+  font-size: max(10px,1.5vw);
+  height: max(15px,3vw);
+  width: 100%;
+  padding: max(3px,.4vw);
+  border-right: none;
+}.Login > form > label > .inputIncorrect{
+  outline: 3px solid #f00;
+}
+
+
+
+.Login > form > label > button{
+  margin-top: max(20px, 1.5vw);
+  cursor: pointer;
+  width: max(50px,10vw);
+  font-size: max(10px,2vw);
+  padding: max(5px,1vw);
+  color: #000;
+  border-radius: 10px;
+}.Login > form > label > button:hover{
+  color: #000b;
+}.Login > form > label > button:active{
+  color: #fff;
+}

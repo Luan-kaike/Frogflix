@@ -1,19 +1,30 @@
+.HeaderPlaceHolder{
+  width: max(200px,100vw);
+  height: max(50px,7vw);
+}
+
 .Header{
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-
   width: max(200px,100vw);
-  height: max(40px,6vw);
+  height: max(50px,7vw);
   background-color: #000;
   outline: groove;
+  z-index: 999;
 }
 
-.Header > div{
+.Header > div > .link > svg{
   cursor: pointer;
-}.Header > div:hover{
-  filter: opacity(80%);
+  width: max(20px,3vw);
+  padding: max(5px,.5vw);
+}.Header > div > .link > .user{
+  border-radius: 50%;
+}.Header > div > .link > svg:hover{
+  fill-opacity: 80%;
 }
 
 .Header > div > .link > p{
@@ -34,17 +45,19 @@
 
 .Header > .search > input{
   border-radius: 10px 0px 0px 10px;
-  font-size: max(10px,1vw);
+  font-size: max(10px,1.5vw);
   height: max(15px,2.5vw);
   width: max(10px,20vw);
   padding-inline: max(3px,.4vw);
   background-color: #000;
+  color: #fff;
   border: #fff 1px solid;
   border-right: none;
 }
 
 .Header > .search > svg{
-  height: max(13px, calc(2.5vw - 2px));
+  height: max(5px, calc(2.5vw - 10px));
+  padding: 4px;
   border-radius: 0px 10px 10px 0px;
   cursor: pointer;
   background-color: #000;
@@ -60,8 +73,8 @@
 }
 
 .Header > nav > ul > li > .link{
-  margin: max(4px,.5vw);
-  font-size: max(10px,2vw);
+  margin: max(5px,.7vw);
+  font-size: max(10px,2.5vw);
   cursor: pointer;
   border-bottom: 1px #000 solid;
 }.Header > nav > ul > li:hover > .link{

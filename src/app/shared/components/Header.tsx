@@ -1,40 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFrog, faCircleUser, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
+import { useUsuarioLogado } from "../hooks";
+import { IStateIcon } from "../context";
 import './css/Header.css';
 
 export const Header: React.FC = () => {
+  const { name, icon } = useUsuarioLogado()
+  const { userColor, userIcon } = icon as IStateIcon
+
   return (
-    <header className="Header">
-      <div>
-        <Link className='link' to='/pagina-inicial'>
-          <FontAwesomeIcon className="icon" icon={faFrog} color='#000' />
-          <p>Frogflix</p>
-        </Link>
-      </div>
+    <>
+      <div className="HeaderPlaceHolder"></div>
 
-      <nav>
-        <ul>
-          <li><Link className='link' to='/pagina-inicial'>Início</Link></li>
-          <li><Link className='link' to='/filmes'>Filmes</Link></li>
-          <li><Link className='link' to='/series'>Séries</Link></li>
-        </ul>
-      </nav>
+      <header className="Header">
+        <div>
+          <Link className='link' to='/pagina-inicial'>
+            <FontAwesomeIcon className="icon" icon="frog" color='#fff' />
+            <p>Frogflix</p>
+          </Link>
+        </div>
 
-      <nav className="search">
-        <input/>
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
-      </nav>
-      
+        <nav>
+          <ul>
+            <li><Link className='link' to='/pagina-inicial'>Início</Link></li>
+            <li><Link className='link' to='/filmes'>Filmes</Link></li>
+            <li><Link className='link' to='/series'>Séries</Link></li>
+          </ul>
+        </nav>
 
-      <div>
-        <Link className='link' to='/entrar'>
-          <FontAwesomeIcon icon={faCircleUser} color='#000'/>
-          <p>Entra</p>
-        </Link>
-      </div>
-    </header>
+        <nav className="search">
+          <input/>
+          <FontAwesomeIcon color='#fff' icon='magnifying-glass' viewBox="0 0 512 512"/>
+        </nav>
+
+        <div>
+          <Link className='link' to='/entrar'>
+            <FontAwesomeIcon className='user' 
+            
+            color='#fff' style={{
+              background: `linear-gradient(70deg, ${userColor[0]} 44%, ${userColor[1]})`
+            }} 
+            icon={userIcon as IconProp}/>
+            <p>{name}</p>
+          </Link>
+        </div>
+      </header>
+
+    </>
   )
 }
