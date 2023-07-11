@@ -1,6 +1,6 @@
 interface IRequireApiTMBDProps{
   (
-    media: 'tv' | 'media' | 'search' | 'person' | 'genre', 
+    media: 'tv' | 'movie' | 'search' | 'person' | 'genre', 
     resource: 'popular' | 'upcoming' | 'top_rated' | 'person' |  number,
     imgSize: 'w92' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'original'
   ): Promise<object> | React.ReactNode

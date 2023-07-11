@@ -1,0 +1,72 @@
+
+
+.DisplayCaseHorizontal{
+  background-color: #aaa;
+  padding-top: max(10px, 1.5vw);
+}
+
+.DisplayCaseHorizontal > aside{
+  display: flex;
+  padding-inline: max(10px, 1.5vw);
+  padding-block: max(10px, 1vw);
+  overflow-y: hidden;
+  overflow-x: scroll;
+  height: 430px;
+}
+
+.DisplayCaseHorizontal > h1{
+  font-size: max(20px, 4vw);
+  margin-left: 15px;
+}
+
+/* Scroll */
+
+  /* Works on Firefox */
+  .DisplayCaseHorizontal > aside{
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #555;
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  .DisplayCaseHorizontal > aside::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .DisplayCaseHorizontal > aside::-webkit-scrollbar-track {
+    background: #555;
+  }
+
+  .DisplayCaseHorizontal > aside::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 20px;
+    border: 3px #555 solid;
+  }
+
+.DisplayCaseHorizontal > aside > .link{
+  margin-inline: 1.5vw;
+}
+
+.DisplayCaseHorizontal > aside > .link > div{
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-row-gap: max(5px, .5vw);
+  color: #fff;
+  padding: 1vw;
+  height: 100%;
+  background-color: black;
+  border-radius: 15px;
+}
+
+.DisplayCaseHorizontal > aside > .link > div > img{
+  border: 1px #fff solid;
+  border-radius: 5px;
+  height: auto
+}
+
+.DisplayCaseHorizontal > aside > .link > div > .title{
+  text-align: center;
+}
+
+.DisplayCaseHorizontal > aside > .link > div > p > svg{
+  margin-inline: 5px;
+}

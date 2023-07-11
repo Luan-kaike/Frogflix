@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { requireApiTMBD } from "../services";
+import './css/DisplayCaseHorizontal.css'
+import { Link } from "react-router-dom";
 
 interface IDisplayCaseHorizontalProps {
-    media: 'tv' | 'media',
+    media: 'tv' | 'movie',
     resource: 'popular' | 'upcoming' | 'top_rated' | number,
-    imgSize: "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original"
+    imgSize: "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original",
+    displayTitle: string;
+    last?: boolean 
 }
 
 interface IContentItems{
@@ -16,14 +20,11 @@ interface IContentItems{
   id: number
 }
 
-export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({media, resource, imgSize}) => 
+export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({media, resource, imgSize, displayTitle, last}) => 
   {
-    const navigate = useNavigate()
-
-    const handleClick = (e: any) => {
-      console.log(e)
-      navigate('/entrar')
-    }
+    const styleDisplay = {
+      marginBottom: last? '' : 'max(30px, 15vw)'
+    };
 
     const [content, setContent] = useState<IContentItems[]>([
       {
@@ -32,11 +33,11 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
         vote: 1,
         id: 1
       }
-    ])
+    ]);
 
     useEffect(() => {
       const executeRequire = async () =>{
-        const mediaData = await requireApiTMBD(media, resource, imgSize)
+        const mediaData = await requireApiTMBD(media, resource, imgSize);
         Array.isArray(mediaData)? 
         setContent(mediaData.map((m: any) => (
             {
@@ -48,23 +49,32 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
           )))
         :
         console.log('ops')
-      }
-      executeRequire()
-    }, [imgSize, media, resource])
+      };
+      executeRequire();
+    }, [imgSize, media, resource]);
 
     return(
-      <aside>
-        { 
-          content.map((m) => { 
-            return (
-              <div key={m.id} onClick={handleClick}>
-                <img src={m.poster} alt={m.title}/>
-                <h1>{m.title}</h1>
-                <p>{m.vote}</p>
-              </div>
-            )
-          })
-        }
-      </aside>
-    )
+      <>
+        <div className="DisplayCaseHorizontal" style={styleDisplay}>
+          <h1>{displayTitle}</h1>
+
+          <aside>
+            { 
+              content.map((m) => { 
+                return (
+                  <Link className="link" to={`/entrar?id=${m.id}`}>
+                    <div key={m.id}>
+                      <img src={m.poster} alt={m.title}/>
+                      <p className="title">{m.title}</p>
+                      <p><FontAwesomeIcon color="#ff0" icon='star'/>{m.vote}</p>
+                    </div>
+                  </Link>
+                )
+              })
+            }
+          </aside>
+
+        </div>
+      </>
+    );
   }

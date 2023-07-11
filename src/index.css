@@ -8,6 +8,33 @@
   border: none;
 }
 
+body{
+  overflow-x: hidden;
+  background-color: #333;
+}
+/* Scroll Body */
+
+  /* Works on Firefox */
+  body{
+    scrollbar-width: thin;
+    scrollbar-color: #555 #ccc;
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  body::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: #ccc;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 20px;
+    border: 3px #ccc solid;
+  }
+
 .link{
   color: #fff;
 }
