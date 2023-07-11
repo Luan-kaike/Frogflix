@@ -20,13 +20,26 @@
 }
 
 .Login > form > label{
-  margin: .5vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 1vw;
 }
 
 .Login > form > label > p{
   color: #fff;
   font-size: max(10px,2.5vw);
-  margin-bottom: max(10px,2.5vw);
+  margin-bottom: max(10px,1.5vw);
+}
+
+.Login > form > label > span{
+  justify-self: center;
+  display: none;
+  border-radius: 0px 5px;
+  padding: 3px;
+  width: 80%;
+  background-color: #f00;
+  color: #fff;
 }
 
 .Login > form > label > input{
