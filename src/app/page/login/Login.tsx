@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import './css/Login.css'
 import { Header } from "../../shared/components";
@@ -16,6 +17,7 @@ export const Login = () => {
 
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordStatus, setPasswordStatus] = useState<boolean>(true)
 
   const verificationInputsIncorrect = useCallback(() => {
     if(spanId.current && spanPassword.current){
@@ -62,6 +64,14 @@ export const Login = () => {
     navigate('/pagina-inicial')
   }, [id, password, logout, navigate, verificationInputsIncorrect]);
   
+  const handlePasswordStatus = useCallback(() => {
+    setPasswordStatus(!passwordStatus)
+  }, [passwordStatus])
+
+  const handleCoorPasswordSvg = useCallback(() => {
+    const x = passwordStatus? 30 : 0
+    return `${x} 0 576 512`
+  }, [passwordStatus])
 
 
   return(
@@ -83,18 +93,25 @@ export const Login = () => {
               onKeyDown={(e) => e.key === 'Enter'? 
               inputPassword.current?.focus() : null}
             />
-            <span ref={spanId}></span>
+            <span className="error" ref={spanId}></span>
           </label>
 
           <label>
-            <input type="password"
-              ref={inputPassword}
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={(e) =>{if(e.key === 'Enter'){verificationInputs()}}} 
-            />
-            <span ref={spanPassword}></span>
+            <span>
+              <input type={passwordStatus? 'password' : 'text'}
+                ref={inputPassword}
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) =>{if(e.key === 'Enter'){verificationInputs()
+                }}}/>
+              <FontAwesomeIcon color='#000' 
+                icon={passwordStatus? 'eye-slash' : 'eye'}
+                onClick={handlePasswordStatus}
+                viewBox={handleCoorPasswordSvg()}
+              />
+            </span>
+            <span className="error" ref={spanPassword}></span>
           </label>
 
           <label>

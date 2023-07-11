@@ -32,17 +32,19 @@
   margin-bottom: max(10px,1.5vw);
 }
 
-.Login > form > label > span{
+.Login > form > label > .error{
   justify-self: center;
   display: none;
-  border-radius: 0px 5px;
+  font-size: max(13px,1.5vw);
+  border-radius: 0px 0px 5px 5px;
   padding: 3px;
   width: 80%;
   background-color: #f00;
   color: #fff;
 }
 
-.Login > form > label > input{
+.Login > form > label > input,
+.Login > form > label > span > input{
   border-radius: 5px;
   color: #000;
   font-size: max(10px,1.5vw);
@@ -50,8 +52,29 @@
   width: 100%;
   padding: max(3px,.4vw);
   border-right: none;
-}.Login > form > label > .inputIncorrect{
+}
+
+.Login > form > label > .inputIncorrect{
   outline: 3px solid #f00;
+}
+
+.Login > form > label > span:not(.error){
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.Login > form > label > span > svg{
+  height: max(5px,2vw);
+  border-radius: 0 5px 5px 0;
+  background-color: #fff;
+  padding: max(5px, .5vw);
+}
+
+.Login > form > label > span > input{
+  border-radius: 5px 0 0 5px;
+  width: 100%;
 }
 
 
