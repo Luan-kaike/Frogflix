@@ -12,12 +12,12 @@
 .Login > form{
   display: flex;
   flex-direction: column;
-  width: max(200px,35vw);
+  width: max(400px,35vw);
   background-color: #000;
   margin: 5vw;
   padding: 5vw;
   padding-top: 2vw;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .Login > form > label{

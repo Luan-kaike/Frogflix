@@ -11,13 +11,12 @@ interface IUsuarioLogadoData{
 interface IUsuarioLogadoProps{
   children: React.ReactNode;
 }
-
+// requireApiTMBD
 export interface IStateIcon{
   userIcon: string;
   userColor: string[];
 }
 
-//background: linear-gradient( 55deg, #8743dd 40%, #3ef326);
 export const UsuarioLogadoContext = createContext<IUsuarioLogadoData>({} as IUsuarioLogadoData);
 
 export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProps> = ({children}) => {

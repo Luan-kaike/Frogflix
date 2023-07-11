@@ -1,10 +1,11 @@
 import { Header } from "../../shared/components"
+import { DisplayCaseHorizontal } from "../../shared/components";
 
 export const Dashboard = () => {
   return(
     <div>
       <Header />
-      <h1>Lista foda</h1>
+      <DisplayCaseHorizontal media="tv" resource='top_rated' imgSize="w185"/>
     </div>
   );
 }
