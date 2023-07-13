@@ -1,29 +1,50 @@
-import { Header } from "../../shared/components"
+import { Wrapper } from "../../shared/components"
 import { DisplayCaseHorizontal } from "../../shared/components";
 
+interface IDisplaysCase{
+  title: string;
+  media: 'tv' | 'movie';
+  resource: "popular" | "top_rated"
+}
+
 export const Dashboard = () => {
+  const displaysCase: IDisplaysCase[] = [
+    {
+      title: 'Filmes mais populares',
+      media: 'movie',
+      resource: 'popular'
+    },
+    {
+      title: 'Filmes mais bem avaliadas',
+      media: 'movie',
+      resource: 'top_rated'
+    },
+    {
+      title: 'Séries mais populares',
+      media: 'tv',
+      resource: 'popular'
+    },
+    {
+      title: 'Séries mais bem avaliadas',
+      media: 'tv',
+      resource: 'top_rated'
+    },
+  ]
   return(
-    <div>
-      <Header />
-      <DisplayCaseHorizontal 
-        displayTitle='Séries mais populares' 
-        media="tv" 
-        resource='popular' 
-        imgSize="w185"
-      />
-      <DisplayCaseHorizontal 
-        displayTitle='Séries mais bem avaliadas' 
-        media="movie" 
-        resource='top_rated' 
-        imgSize="w185"
-      />
-      <DisplayCaseHorizontal 
-        displayTitle='Séries mais populares' 
-        media="tv" 
-        resource='popular' 
-        imgSize="w185"
-        last
-      />
-    </div>
+      <Wrapper>
+
+        {
+          displaysCase.map((d, i) => (
+            <DisplayCaseHorizontal 
+              displayTitle={d.title}
+              media={d.media}
+              resource={d.resource}
+              imgSize="w185"
+              last={i === displaysCase.length-1}
+            />
+          ))
+        }
+        
+      </Wrapper>
   );
 }

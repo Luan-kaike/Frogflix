@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import './css/Login.css'
-import { Header } from "../../shared/components";
+import { Wrapper } from "../../shared/components";
 import { useUsuarioLogado } from "../../shared/hooks";
 
 export const Login = () => {
@@ -12,6 +12,7 @@ export const Login = () => {
 
   const inputPassword = useRef<HTMLInputElement>(null)
   const inputId = useRef<HTMLInputElement>(null)
+  const spanDadPassword = useRef<HTMLSpanElement>(null)
   const spanPassword = useRef<HTMLSpanElement>(null)
   const spanId = useRef<HTMLSpanElement>(null)
 
@@ -21,12 +22,10 @@ export const Login = () => {
 
   const verificationInputsIncorrect = useCallback(() => {
     if(spanId.current && spanPassword.current){
-      spanId.current.innerHTML = '';
-      spanPassword.current.innerHTML = ''
     
       if(inputId.current){
         if(!id.trim()){
-          spanId.current.innerHTML += 'Esse campo é obrigatório';
+          spanId.current.innerHTML = 'Esse campo é obrigatório';
           spanId.current.style.display = 'block';
           inputId.current.className = 'inputIncorrect';
         }
@@ -40,13 +39,13 @@ export const Login = () => {
         }
       }
 
-      if(inputPassword.current){
+      if(inputPassword.current && spanDadPassword.current){
         if(!password.trim()){
           spanPassword.current.innerHTML = 'Esse campo é obrigatório';
           spanPassword.current.style.display = 'block';
-          inputPassword.current.className = 'inputIncorrect';
+          spanDadPassword.current.className = 'inputIncorrect';
         }else {
-          inputPassword.current.className = '';
+          spanDadPassword.current.className = '';
           spanPassword.current.style.display = 'none';
         }
       }
@@ -75,11 +74,11 @@ export const Login = () => {
 
 
   return(
-    <>
-      <Header />
-      <div className="Login">
-        
+      <Wrapper>
+
+      <aside className="Login">
         <form> 
+          
           <label>
             <p>Entre na sua conta</p>
           </label>
@@ -97,7 +96,7 @@ export const Login = () => {
           </label>
 
           <label>
-            <span>
+            <span ref={spanDadPassword}>
               <input type={passwordStatus? 'password' : 'text'}
                 ref={inputPassword}
                 placeholder="Senha"
@@ -122,9 +121,10 @@ export const Login = () => {
           </label>
 
           <label><Link className="link" to={'/cadastro'}>Cadastrar</Link></label>
-        </form>
 
-      </div>
-    </>
+        </form>
+      </aside>
+
+      </Wrapper>
   );
 }

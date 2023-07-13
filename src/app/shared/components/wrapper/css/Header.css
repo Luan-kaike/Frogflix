@@ -62,7 +62,6 @@
   cursor: pointer;
   background-color: #000;
   border: #fff 1px solid;
-  border-left: none;
 }
 
 
@@ -75,9 +74,4 @@
 .Header > nav > ul > li > .link{
   margin: max(5px,.7vw);
   font-size: max(10px,2.5vw);
-  cursor: pointer;
-  border-bottom: 1px #000 solid;
-}.Header > nav > ul > li:hover > .link{
-  filter: opacity(80%);
-  border-color: #fff;
 }

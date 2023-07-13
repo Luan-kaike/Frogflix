@@ -53,6 +53,8 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
       executeRequire();
     }, [imgSize, media, resource]);
 
+
+
     return(
       <>
         <div className="DisplayCaseHorizontal" style={styleDisplay}>
@@ -62,7 +64,8 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
             { 
               content.map((m) => { 
                 return (
-                  <Link className="link" to={`/entrar?id=${m.id}`}>
+                  <Link key={`${m.id} m.title`} className="link" 
+                  to={`/entrar?id=${m.id}`}>
                     <div key={m.id}>
                       <img src={m.poster} alt={m.title}/>
                       <p className="title">{m.title}</p>
@@ -77,4 +80,4 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
         </div>
       </>
     );
-  }
+}

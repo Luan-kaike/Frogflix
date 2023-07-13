@@ -1,0 +1,24 @@
+.Footer{
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  width: max(200px,100vw);
+  height: max(100px,10vw);
+  background-color: #000;
+  outline: groove;
+}
+
+.Footer > ul{
+  padding: min(1vw);
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: center;
+  list-style: none;
+}
+
+.Footer > ul > li{
+  color: #fff;
+}
+
+.Footer > ul > li > a{
+  color: #fff;
+}

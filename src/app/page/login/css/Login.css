@@ -26,16 +26,20 @@
   margin: 1vw;
 }
 
+.Login > form > label > .link{
+  font-size: max(17px,2vw);
+}
+
 .Login > form > label > p{
   color: #fff;
-  font-size: max(10px,2.5vw);
+  font-size: max(23px,2.5vw);
   margin-bottom: max(10px,1.5vw);
 }
 
 .Login > form > label > .error{
   justify-self: center;
   display: none;
-  font-size: max(13px,1.5vw);
+  font-size: max(15px,1.5vw);
   border-radius: 0px 0px 5px 5px;
   padding: 3px;
   width: 80%;
@@ -47,16 +51,23 @@
 .Login > form > label > span > input{
   border-radius: 5px;
   color: #000;
-  font-size: max(10px,1.5vw);
-  height: max(15px,3vw);
+  height: max(23px,3vw);
   width: 100%;
   padding: max(3px,.4vw);
   border-right: none;
 }
 
-.Login > form > label > .inputIncorrect{
-  outline: 3px solid #f00;
+.Login > form > label > .inputIncorrect:not(span){
+  outline: 3px #f00 solid;
 }
+
+.Login > form > label > .inputIncorrect > input,
+.Login > form > label > .inputIncorrect > svg{
+  border: none;
+  outline: 3px #f00 solid;
+}
+
+
 
 .Login > form > label > span:not(.error){
   display: flex;
@@ -66,10 +77,13 @@
 }
 
 .Login > form > label > span > svg{
-  height: max(5px,2vw);
+  position: relative;
+  height: max(9px,calc(3vw - 14px));
   border-radius: 0 5px 5px 0;
   background-color: #fff;
-  padding: max(5px, .5vw);
+  padding: 7px;
+  cursor: pointer;
+  border-left: 3px #000 solid;
 }
 
 .Login > form > label > span > input{
@@ -82,8 +96,8 @@
 .Login > form > label > button{
   margin-top: max(20px, 1.5vw);
   cursor: pointer;
-  width: max(50px,10vw);
-  font-size: max(10px,2vw);
+  width: 40%;
+  font-size: max(20px,2vw);
   padding: max(5px,1vw);
   color: #000;
   border-radius: 10px;

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-import { useUsuarioLogado } from "../hooks";
-import { IStateIcon } from "../context";
+import { useUsuarioLogado } from "../../hooks";
+import { IStateIcon } from "../../context";
 import './css/Header.css';
 
 export const Header: React.FC = () => {
@@ -25,15 +25,21 @@ export const Header: React.FC = () => {
 
         <nav>
           <ul>
-            <li><Link className='link' to='/pagina-inicial'>Início</Link></li>
-            <li><Link className='link' to='/filmes'>Filmes</Link></li>
-            <li><Link className='link' to='/series'>Séries</Link></li>
+            <li>
+              <Link className='link href' to='/pagina-inicial'>Início</Link>
+              </li>
+            <li>
+              <Link className='link href' to='/filmes'>Filmes</Link>
+            </li>
+            <li>
+              <Link className='link href' to='/series'>Séries</Link>
+            </li>
           </ul>
         </nav>
 
         <nav className="search">
           <input/>
-          <FontAwesomeIcon color='#fff' icon='magnifying-glass' viewBox="0 0 512 512"/>
+          <FontAwesomeIcon color='#fff' icon='magnifying-glass' viewBox="0 15 512 512"/>
         </nav>
 
         <div>

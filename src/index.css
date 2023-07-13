@@ -38,3 +38,13 @@ body{
 .link{
   color: #fff;
 }
+
+.href{
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+.href:hover{
+  padding-bottom: 2px;
+  filter: opacity(80%);
+  border-bottom: 1px #fff solid;
+}
