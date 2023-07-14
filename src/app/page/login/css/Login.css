@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: max(200px,100vw);
+  width: 100vw;
 }
 
 
@@ -24,6 +24,10 @@
   align-items: center;
   flex-direction: column;
   margin: 1vw;
+}
+
+.Login > form > div{
+  margin-bottom: 5px;
 }
 
 .Login > form > label > .link{
@@ -93,7 +97,7 @@
 
 
 
-.Login > form > label > button{
+.Login > form > div > button{
   margin-top: max(20px, 1.5vw);
   cursor: pointer;
   width: 40%;
@@ -101,8 +105,8 @@
   padding: max(5px,1vw);
   color: #000;
   border-radius: 10px;
-}.Login > form > label > button:hover{
+}.Login > form > div > button:hover{
   color: #000b;
-}.Login > form > label > button:active{
+}.Login > form > div > button:active{
   color: #fff;
 }

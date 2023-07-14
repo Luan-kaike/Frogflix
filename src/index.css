@@ -48,3 +48,17 @@ body{
   filter: opacity(80%);
   border-bottom: 1px #fff solid;
 }
+
+.load{
+  height: 200px;
+  animation: rotate 2s infinite;
+}
+
+@keyframes rotate{
+  to{
+    transform: rotate(0deg);
+  }
+  from{
+    transform: rotate(-360deg);
+  }
+}

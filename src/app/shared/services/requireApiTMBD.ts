@@ -12,7 +12,6 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
   const response = await fetch(URL);
   const data = await response.json();
   const medias = await data.results
-  console.log(typeof medias, medias)
   
   const objMedias = await Promise.all(medias.map(async (m: any) => {
     const posterURL = m.poster_path

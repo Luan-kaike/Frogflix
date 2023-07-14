@@ -8,17 +8,19 @@
 }
 
 .Footer > ul{
-  padding: min(1vw);
+  padding: max(3px, 1vw);
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: repeat(10, auto);
   justify-content: center;
   list-style: none;
 }
 
-.Footer > ul > li{
+.Footer > ul > li > h2{
   color: #fff;
+  font-size: max(12px,2.5vw);
 }
 
 .Footer > ul > li > a{
   color: #fff;
+  font-size: max(10px,2vw);
 }

@@ -14,31 +14,24 @@ interface IDisplayCaseHorizontalProps {
 }
 
 interface IContentItems{
-  title: string;
-  poster: string;
-  vote: number;
-  id: number
+  load?: boolean;
+  title?: string;
+  poster?: string;
+  vote?: number;
+  id?: number;
 }
 
-export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({media, resource, imgSize, displayTitle, last}) => 
-  {
-    const styleDisplay = {
+export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({media, resource, imgSize, displayTitle, last}) => {
+  const styleDisplay = {
       marginBottom: last? '' : 'max(30px, 15vw)'
-    };
+  };
 
-    const [content, setContent] = useState<IContentItems[]>([
-      {
-        title: '',
-        poster: '',
-        vote: 1,
-        id: 1
-      }
-    ]);
+  const [content, setContent] = useState<IContentItems[]>([{ load: true }]);
 
-    useEffect(() => {
-      const executeRequire = async () =>{
-        const mediaData = await requireApiTMBD(media, resource, imgSize);
-        Array.isArray(mediaData)? 
+  useEffect(() => {
+    const executeRequire = async () => {
+      const mediaData = await requireApiTMBD(media, resource, imgSize);
+      Array.isArray(mediaData)? 
         setContent(mediaData.map((m: any) => (
             {
               title: m.title,
@@ -46,38 +39,46 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
               vote: m.vote,
               id: m.id
             }
-          )))
-        :
+        )))
+      :
         console.log('ops')
-      };
-      executeRequire();
-    }, [imgSize, media, resource]);
+    };
+
+    executeRequire();
+  }, [imgSize, media, resource]);
 
 
 
-    return(
-      <>
-        <div className="DisplayCaseHorizontal" style={styleDisplay}>
-          <h1>{displayTitle}</h1>
+  return(
+    <>
+      <div className="DisplayCaseHorizontal" style={styleDisplay}>
+        <h1>{displayTitle}</h1>
 
-          <aside>
-            { 
-              content.map((m) => { 
-                return (
-                  <Link key={`${m.id} m.title`} className="link" 
-                  to={`/entrar?id=${m.id}`}>
-                    <div key={m.id}>
-                      <img src={m.poster} alt={m.title}/>
-                      <p className="title">{m.title}</p>
-                      <p><FontAwesomeIcon color="#ff0" icon='star'/>{m.vote}</p>
-                    </div>
-                  </Link>
-                )
-              })
-            }
-          </aside>
+        <aside className={content[0].load? 'loading' : ''}>
+          { 
+            content.map(({title, id, poster, vote, load}) => {
+              const content = (
+                <Link key={`${id} ${title}`} className="link" 
+                to={`/producoes?id=${media}-${id}`}>
+                  <div key={id}>
+                    <img src={poster} alt={title}/>
+                    <p className="title">{title}</p>
+                    <p><FontAwesomeIcon color="#ff0" icon='star'/>{vote}</p>
+                  </div>
+                </Link>
+              )
+              const contentLoad = (
+                <FontAwesomeIcon className="load" color="#fff" icon='spinner'/>
+              )
+              console.log()
+              return (
+                load? contentLoad : content
+              );
+            })
+          }
+        </aside>
 
-        </div>
-      </>
-    );
+      </div>
+    </>
+  );
 }

@@ -1,11 +1,10 @@
-
-
 .DisplayCaseHorizontal{
   background-color: #aaa;
   padding-top: max(10px, 1.5vw);
 }
 
 .DisplayCaseHorizontal > aside{
+  position: relative;
   display: flex;
   padding-inline: max(10px, 1.5vw);
   padding-block: max(10px, 1vw);
@@ -17,6 +16,12 @@
 .DisplayCaseHorizontal > h1{
   font-size: max(20px, 4vw);
   margin-left: 15px;
+}
+
+.DisplayCaseHorizontal > .loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Scroll */
@@ -60,7 +65,12 @@
 .DisplayCaseHorizontal > aside > .link > div > img{
   border: 1px #fff solid;
   border-radius: 5px;
-  height: auto
+  width: 187px;
+  height: 280px;
+}
+
+.DisplayCaseHorizontal > aside > .link > div:hover{
+  opacity: 80%;
 }
 
 .DisplayCaseHorizontal > aside > .link > div > .title{
