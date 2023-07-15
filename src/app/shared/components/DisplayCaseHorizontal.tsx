@@ -59,7 +59,7 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
             content.map(({title, id, poster, vote, load}) => {
               const content = (
                 <Link key={`${id} ${title}`} className="link" 
-                to={`/producoes?id=${media}-${id}`}>
+                to={`/descricao?id=${media}-${id}`}>
                   <div key={id}>
                     <img src={poster} alt={title}/>
                     <p className="title">{title}</p>
@@ -70,7 +70,6 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
               const contentLoad = (
                 <FontAwesomeIcon className="load" color="#fff" icon='spinner'/>
               )
-              console.log()
               return (
                 load? contentLoad : content
               );

@@ -64,6 +64,7 @@
 
 .DisplayCaseHorizontal > aside > .link > div > img{
   border: 1px #fff solid;
+  margin: 5px;
   border-radius: 5px;
   width: 187px;
   height: 280px;

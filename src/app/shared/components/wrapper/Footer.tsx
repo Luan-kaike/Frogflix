@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
       <ul>
         <li><h2>Créditos</h2></li>
         <li>
-          <a href="https://www.themoviedb.org/about?language=pt-BR" className="href">TMDB</a>
+          <a href="https://www.themoviedb.org/" className="href">TMDB</a>
         </li>
         <li>
           <a href="https://fontawesome.com/" className="href">Font Awesome</a>
