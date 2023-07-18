@@ -26,23 +26,24 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
   const response = await fetch(URL);
   const data = await response.json();
   const medias = data.results? data.results : [data]
+  console.dir(medias)
   
   const objMedias = await Promise.all(medias.map(async (m: any) => {
 
     // get basic
-    const title = m.title ? m.title : m.name
-    const vote = m.vote_average
-    const id = m.id
+    const title = m.title ? m.title : m.name;
+    const vote = m.vote_average.toFixed(1);
+    const id = m.id;
 
     // get poster
-    const posterURL = m.poster_path
-    const poster = await getImage(posterURL, imgSize)
+    const posterURL = m.poster_path;
+    const poster = await getImage(posterURL, imgSize);
 
     // get companies
-    const companies = m.production_companies
+    const companies = m.production_companies;
     if(companies){
       companies.map( async (c: any) => {
-        c.logo_path = c.logo_path? await getImage(c.logo_path, imgSize) : null
+        c.logo_path = c.logo_path? await getImage(c.logo_path, imgSize) : null;
       });
     };
 
@@ -51,39 +52,40 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
       budget?: number | null;
       revenue?: number | null;
       gain?: number | null;
-    }
-    const money: IMoneyItems = {}
-    const budget = m.budget? m.budget : null
-    const revenue = m.revenue? m.revenue : null
+    };
+    const money: IMoneyItems = {};
+    const budget = m.budget? m.budget : null;
+    const revenue = m.revenue? m.revenue : null;
     if(budget && revenue){
-      const gain = revenue - budget
-      money.budget = budget
-      money.revenue = revenue
-      money.gain = gain
-    }
+      const gain = revenue - budget;
+      money.budget = budget;
+      money.revenue = revenue;
+      money.gain = gain;
+    };
 
     // get time
     const calcTime = () => {
-      const timeInMin = m.runtime
+      const timeInMin = m.runtime;
       if(timeInMin){
-        const hours = (timeInMin / 60).toFixed(0)
-        const minutes = (timeInMin % 60).toFixed(0)
-        return `${hours}h ${minutes}min`
-      }
-    }
-    const time = calcTime()
+        const hours = (timeInMin / 60).toFixed(0);
+        const minutes = (timeInMin % 60).toFixed(0);
+        return `${hours}h ${minutes}min`;
+      };
+    };
+    const time = calcTime();
 
     // get date
-    const date = m.release_date? m.release_date : null
+    const date = m.release_date? m.release_date : 
+                m.first_air_date? m.first_air_date : null;
 
     // get genres
     const genres = m.genres? m.genres.map((g:any) => g.name) : null;
 
     // get tagline
-    const tagline = m.tagline? m.tagline : null
+    const tagline = m.tagline? m.tagline : null;
 
     // get overview
-    const overview = m.overview? m.overview : null
+    const overview = m.overview? m.overview : null;
 
     return {
       date: date,
@@ -97,10 +99,10 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
       vote: vote,
       poster: poster,
       id: id,
-    }
+    };
   }));
 
-  return objMedias
+  return objMedias;
 };
 
 const getImage = async (imgUrl: string, imgSize: string) => {

@@ -3,11 +3,41 @@
   height: max(50px,7vw);
 }
 
+
+
+
+
+.HeaderDivSearch{
+  top: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: max(40px,7vw);
+  width: max(200px,100vw);
+  padding: max(5px, 2vw);
+  z-index: 99;
+}
+
+.HeaderDivSearch > input{
+  width: 100%;
+  height: max(30px, 4vw);
+  font-size: max(15px, 2vw);
+  border: 1px #000 solid;
+  padding: 2px;
+  padding-inline: 5px;
+}
+
+
+
+
+
 .Header{
   position: fixed;
   top: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   width: max(200px,100vw);
@@ -17,61 +47,51 @@
   z-index: 999;
 }
 
-.Header > div > .link > svg{
+.Header > div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: max(3px, 4vw);
+  margin-left: max(8px, 1vw);
+  margin-right: max(20px, calc(1vw + 12px));
+}
+
+.Header > div > div > .link > svg{
   cursor: pointer;
   width: max(20px,3vw);
   padding: max(5px,.5vw);
-}.Header > div > .link > .user{
+}.Header > div > div > .link > .user{
   border-radius: 50%;
-}.Header > div > .link > svg:hover{
+}.Header > div > div > .link > svg:hover{
   fill-opacity: 80%;
 }
 
-.Header > div > .link > p{
+.Header > div > div > .link > p{
   font-size: max(10px,2vw);
+  user-select: none;
   cursor: default;
 }
 
-.Header > div > .link > svg{
+.Header > div > div > .link > svg{
   height: max(20px,3vw);
 }
 
 
 
-.Header > .search{
-  display: flex;
-  align-items: center;
-}
-
-.Header > .search > input{
-  border-radius: 10px 0px 0px 10px;
-  font-size: max(10px,1.5vw);
-  height: max(15px,2.5vw);
-  width: max(10px,20vw);
-  padding-inline: max(3px,.4vw);
-  background-color: #000;
-  color: #fff;
-  border: #fff 1px solid;
-  border-right: none;
-}
-
-.Header > .search > svg{
-  height: max(5px, calc(2.5vw - 10px));
+.Header > div > .search > svg{
+  height: max(15px, calc(4vw - 8px));
   padding: 4px;
-  border-radius: 0px 10px 10px 0px;
   cursor: pointer;
-  background-color: #000;
-  border: #fff 1px solid;
 }
 
 
 
-.Header > nav > ul{
+.Header > div > nav > ul{
   display: flex;
   list-style: none;
 }
 
-.Header > nav > ul > li > .link{
+.Header > div > nav > ul > li > .link{
   margin: max(5px,.7vw);
   font-size: max(13px,2.5vw);
 }

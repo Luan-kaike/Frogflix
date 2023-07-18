@@ -70,8 +70,8 @@ export const Description = () => {
             <div className="infoMain">
               <h1>{content.title}</h1>
               <h3>
-                {content.date? `${content.time} • ` : ''}
-                {content.date? `${content.genres.join(', ')} • ` : ''}
+                {content.time? `${content.time} • ` : ''}
+                {content.genres? `${content.genres.join(', ')} • ` : ''}
                 {content.date? `${content.date.split('-')[0]}` : ''}
               </h3>
             </div>
