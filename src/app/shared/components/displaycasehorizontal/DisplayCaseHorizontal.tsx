@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { requireApiTMBD } from "../services";
+import { requireApiTMBD } from "../../services";
+import { Media } from '../index'
 import './css/DisplayCaseHorizontal.css'
-import { Link } from "react-router-dom";
 
 interface IDisplayCaseHorizontalProps {
     media: 'tv' | 'movie',
@@ -50,7 +50,6 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
 
 
   return(
-    <>
       <div className="DisplayCaseHorizontal" style={styleDisplay}>
         <h1>{displayTitle}</h1>
 
@@ -58,18 +57,18 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
           { 
             content.map(({title, id, poster, vote, load}) => {
               const content = (
-                <Link key={`${id} ${title}`} className="link" 
-                to={`/descricao?id=${media}-${id}`}>
-                  <div key={id}>
-                    <img src={poster} alt={title}/>
-                    <p className="title">{title}</p>
-                    <p><FontAwesomeIcon color="#ff0" icon='star'/>{vote}</p>
-                  </div>
-                </Link>
-              )
+                <Media
+                poster={poster}
+                title={title}
+                media={media}
+                vote={vote}
+                id={id}
+                />
+              );
+
               const contentLoad = (
                 <FontAwesomeIcon className="load" color="#fff" icon='spinner'/>
-              )
+              );
               return (
                 load? contentLoad : content
               );
@@ -78,6 +77,5 @@ export const DisplayCaseHorizontal: React.FC<IDisplayCaseHorizontalProps> = ({me
         </aside>
 
       </div>
-    </>
   );
 }

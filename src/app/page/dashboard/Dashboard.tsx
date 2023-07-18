@@ -31,7 +31,7 @@ export const Dashboard = () => {
     },
   ]
   return(
-      <Wrapper heightAuto>
+      <Wrapper pag="" heightAuto>
 
         {
           displaysCase.map((d, i) => (

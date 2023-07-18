@@ -1,2 +1,3 @@
 export * from './wrapper/Wrapper';
-export * from './DisplayCaseHorizontal'
+export * from './displaycasehorizontal/DisplayCaseHorizontal'
+export * from './media/Media'

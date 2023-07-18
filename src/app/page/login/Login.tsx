@@ -74,56 +74,54 @@ export const Login = () => {
 
 
   return(
-      <Wrapper>
-
-        <aside className="Login">
-          <form> 
+      <Wrapper pag="Login">
+        <form> 
             
-            <label>
-              <p>Entre na sua conta</p>
-            </label>
+          <label>
+            <p>Entre na sua conta</p>
+          </label>
 
-            <label>
-              <input type='text'
-                placeholder="nome de usuario ou email"
-                ref={inputId} 
-                value={id}
-                onChange={(e) => setId(e.target.value)} 
-                onKeyDown={(e) => e.key === 'Enter'? 
-                inputPassword.current?.focus() : null}
+          <label>
+            <input type='text'
+              placeholder="nome de usuario ou email"
+              ref={inputId} 
+              value={id}
+              onChange={(e) => setId(e.target.value)} 
+              onKeyDown={(e) => e.key === 'Enter'? 
+              inputPassword.current?.focus() : null}
+            />
+            <span className="error" ref={spanId}></span>
+          </label>
+
+          <label>
+            <span ref={spanDadPassword}>
+              <input type={passwordStatus? 'password' : 'text'}
+                ref={inputPassword}
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) =>{if(e.key === 'Enter'){verificationInputs()
+              }}}/>
+              <FontAwesomeIcon color='#000' 
+                icon={passwordStatus? 'eye-slash' : 'eye'}
+                onClick={handlePasswordStatus}
+                viewBox={handleCoorPasswordSvg()}
               />
-              <span className="error" ref={spanId}></span>
-            </label>
+            </span>
+            <span className="error" ref={spanPassword}></span>
+          </label>
 
-            <label>
-              <span ref={spanDadPassword}>
-                <input type={passwordStatus? 'password' : 'text'}
-                  ref={inputPassword}
-                  placeholder="Senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyDown={(e) =>{if(e.key === 'Enter'){verificationInputs()
-                  }}}/>
-                <FontAwesomeIcon color='#000' 
-                  icon={passwordStatus? 'eye-slash' : 'eye'}
-                  onClick={handlePasswordStatus}
-                  viewBox={handleCoorPasswordSvg()}
-                />
-              </span>
-              <span className="error" ref={spanPassword}></span>
-            </label>
+          <div>
+            <button type="button" onClick={verificationInputs}>
+              Entrar
+            </button>
+          </div>
 
-            <div>
-              <button type="button" onClick={verificationInputs}>
-                Entrar
-              </button>
-            </div>
+          <label>
+            <Link className="link" to={'/cadastro'}>Cadastrar</Link>
+          </label>
 
-            <label><Link className="link" to={'/cadastro'}>Cadastrar</Link></label>
-
-          </form>
-        </aside>
-
+        </form>
       </Wrapper>
   );
 }

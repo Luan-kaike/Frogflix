@@ -25,7 +25,7 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
 
   const response = await fetch(URL);
   const data = await response.json();
-  const medias = await data.results;
+  const medias = data.results? data.results : [data]
   
   const objMedias = await Promise.all(medias.map(async (m: any) => {
 
@@ -66,8 +66,8 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     const calcTime = () => {
       const timeInMin = m.runtime
       if(timeInMin){
-        const hours = timeInMin / 60
-        const minutes = Math.round(timeInMin % 60)
+        const hours = (timeInMin / 60).toFixed(0)
+        const minutes = (timeInMin % 60).toFixed(0)
         return `${hours}h ${minutes}min`
       }
     }
@@ -77,14 +77,18 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     const date = m.release_date? m.release_date : null
 
     // get genres
-    const genres = m.genres? m.genres : null
+    const genres = m.genres? m.genres.map((g:any) => g.name) : null;
 
     // get tagline
     const tagline = m.tagline? m.tagline : null
 
+    // get overview
+    const overview = m.overview? m.overview : null
+
     return {
       date: date,
       time: time,
+      overview: overview,
       companies: companies,
       genres: genres,
       title: title,
@@ -98,7 +102,6 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
 
   return objMedias
 };
-//  /pdthRbCuXNlrGNwnmLFRxv5Zy3t.png
 
 const getImage = async (imgUrl: string, imgSize: string) => {
   const imageURL = `https://image.tmdb.org/t/p/${imgSize}/${imgUrl}`;

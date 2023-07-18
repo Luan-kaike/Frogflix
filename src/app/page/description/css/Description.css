@@ -1,0 +1,43 @@
+
+.Description > div{
+  display: flex;
+  padding: max(10px, 2vw);
+  color: #fff;
+}
+
+.Description > div > img{
+  border: 1px #fff solid;
+  border-radius: 10px;
+  grid-row: 1 / 3;
+}
+
+.Description > div > aside{
+  margin: .5rem;
+}
+
+.Description > div > aside > .infoSecond > h3{
+  margin: 15px;
+}
+
+.Description > div > aside > .infoSecond > h4{
+  color: #fffa;
+  margin: 1rem;
+}
+
+.Description > div > aside > .infoThird > p:not(.overview){
+  margin-bottom: .2rem;
+}
+
+.Description > div > aside > .infoThird > .overview{
+  text-indent: 1rem;
+  width: max(200px, 50%);
+}
+
+
+
+@media (max-width: 420px) {
+  h1 {
+    color: red;
+    font-size: 18px;
+  }
+}

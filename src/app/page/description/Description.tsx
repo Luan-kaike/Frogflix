@@ -1,6 +1,9 @@
-import React, { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
+import './css/Description.css'
 import { requireApiTMBD } from "../../shared/services";
+import { Wrapper } from "../../shared/components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IGetParams{
   error: boolean;
@@ -34,37 +37,72 @@ export const Description = () => {
     }
   }, [])
 
-  const [content, setContent] = useState<object | React.ReactNode>({})
+  const [content, setContent] = useState<any>(null)
+
   useEffect(() => {
     const executeRequire = async () => {
       const { id, media } = getParams()
 
-      const requireAPI = async () => {
-        if(id && media){
-          const objConfig: {
-            similar: boolean;
-            credits: boolean;
-            videos: boolean;
-            recommendations: boolean;
-          } = {
-            similar: true,
-            credits: false,
-            videos: true,
-            recommendations: false
-          };
+      if(id && media){
+        const objConfig = {
+          similar: true,
+          credits: true,
+          videos: true,
+          recommendations: true,
+        };
 
-          const mediaData = await requireApiTMBD(media, id, 'w185', 
-          objConfig);
-          setContent(mediaData)
-        }
+        const mediaData = await requireApiTMBD(media, id, 'w185', 
+        objConfig);
+        Array.isArray(mediaData)? setContent(mediaData[0]) : setContent(null);
       }
     };
     executeRequire();
   }, [getParams]);
 
+  const loadContent = useCallback(() => {
+    if(content){
+      return(
+        <div>
 
+          <img src={content.poster} alt={content.title} />
+
+          <aside>
+            <div className="infoMain">
+              <h1>{content.title}</h1>
+              <h3>
+                {content.date? `${content.time} • ` : ''}
+                {content.date? `${content.genres.join(', ')} • ` : ''}
+                {content.date? `${content.date.split('-')[0]}` : ''}
+              </h3>
+            </div>
+            
+            <div className="infoSecond">
+              <h3>
+                <FontAwesomeIcon color='#ff0' icon='star'/> {content.vote}
+              </h3>
+              <h4><i>{content.tagline}</i></h4>
+            </div>
+
+            <div className="infoThird">
+              <p>Sinopse:</p>
+              <p className="overview">{content.overview}</p>
+            </div>
+          </aside>
+            
+        </div>
+      );
+    };
+
+    return(
+      <aside className="loading">
+        <FontAwesomeIcon className='load' color="#fff" icon='spinner'/>
+      </aside>
+    );
+  }, [content])
 
   return(
-    <h1>oi tudo bem?</h1>
+    <Wrapper pag="Description">
+        {loadContent()}
+    </Wrapper>
   );
 }

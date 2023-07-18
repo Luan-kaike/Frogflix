@@ -4,17 +4,19 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 interface IWrapperProps{
-  heightAuto?: boolean
+  heightAuto?: boolean;
+  pag: string;
   
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export const Wrapper: React.FC<IWrapperProps> = ({children, heightAuto}) => {
+export const Wrapper: React.FC<IWrapperProps> = 
+({children, heightAuto, pag}) => {
   return(
     <div className="Wrapper">
       <Header />
       
-      <main style={{height: heightAuto?'auto' : '100vh'}}>
+      <main className={pag} style={{height: heightAuto?'auto' : '100vh'}}>
         {children}
       </main>
 

@@ -35,6 +35,13 @@ body{
     border: 3px #ccc solid;
   }
 
+
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .link{
   color: #fff;
 }
