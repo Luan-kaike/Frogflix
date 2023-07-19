@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  border: 1px #000 solid;
   height: max(40px,7vw);
   width: max(200px,100vw);
   padding: max(5px, 2vw);
@@ -21,12 +22,16 @@
 }
 
 .HeaderDivSearch > input{
-  width: 100%;
+  width: 80%;
   height: max(30px, 4vw);
   font-size: max(15px, 2vw);
-  border: 1px #000 solid;
+  margin: 2%;
   padding: 2px;
   padding-inline: 5px;
+}
+
+.HeaderDivSearch > svg{
+  height: max(15px,2.5vw);
 }
 
 
@@ -86,12 +91,56 @@
 
 
 
-.Header > div > nav > ul{
+.Header > div > nav > ul,
+.Header > div > nav > ul > li > ul{
   display: flex;
   list-style: none;
 }
 
-.Header > div > nav > ul > li > .link{
+.Header > div > nav > ul > li > svg{
+  display: contents;
+}
+
+.Header > div > nav > ul > li > svg{
+  height: max(15px,2.5vw);
+}
+
+.Header > div > nav > ul > li > ul > li > .link{
   margin: max(5px,.7vw);
   font-size: max(13px,2.5vw);
+}
+
+@media screen and (max-width: 280px){
+  .Header > .contentLeft{
+    flex-direction: row-reverse;
+    padding-left: 5%;
+  }
+
+  .Header > div > nav > ul > li > svg{
+    display: block;
+  }
+
+  .Header > div > nav > ul > li > ul{
+    display: none;
+    background-color: #000;
+    position: absolute;
+    top: max(50px,7vw);
+    left: 15px;
+  }
+
+  .Header > div > nav > ul > li > ul > li{
+    padding: 5px;
+  }
+
+  .Header > div > nav > ul > li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: max(50px,7vw);
+  }
+
+  .Header > div > nav > ul > li:hover > ul{
+    display: block;
+  }
 }

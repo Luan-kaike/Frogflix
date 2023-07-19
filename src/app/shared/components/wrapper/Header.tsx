@@ -17,31 +17,44 @@ export const Header: React.FC = () => {
   const divSearch = useRef<HTMLDivElement>(null)
   const inputSearch = useRef<HTMLInputElement>(null)
 
+  const closeBarSearch = useCallback((e: any) => {
+    if(e.key === 'Escape'){
+      if(divSearch.current){
+        setIconSearch(true)
+        divSearch.current.style.transform = '';
+      }
+    }
+  }, [])
+
   const handleClickSearch = useCallback(() => {
     setIconSearch(!iconSearch)
     if(divSearch.current){
       if(iconSearch){
         inputSearch.current?.focus()
         divSearch.current.style.transform = 'translateY(max(50px,7vw))'; 
-        
+        window.addEventListener('keydown', closeBarSearch)
       }else{
         divSearch.current.style.transform = '';
+        window.removeEventListener('keydown', closeBarSearch)
       }
     }
-  }, [iconSearch]);
+  }, [iconSearch, closeBarSearch]);
 
   return (
     <>
       <div className="HeaderPlaceHolder"></div>
 
       <div ref={divSearch} className="HeaderDivSearch">
+        <FontAwesomeIcon icon="magnifying-glass" color='#000' 
+          flip="horizontal"
+        />
         <input ref={inputSearch} type="text"
           placeholder="Pesquise filmes ou series"
         />
       </div>
 
       <header className="Header">
-        <div>
+        <div className='contentLeft'>
           <div>
             <Link className='link' to='/pagina-inicial'>
               <FontAwesomeIcon className="icon" icon="frog" color='#fff' />
@@ -52,13 +65,18 @@ export const Header: React.FC = () => {
           <nav>
             <ul>
               <li>
-                <Link className='link href' to='/pagina-inicial'>Início</Link>
-                </li>
-              <li>
-                <Link className='link href' to='/filmes'>Filmes</Link>
-              </li>
-              <li>
-                <Link className='link href' to='/series'>Séries</Link>
+                <FontAwesomeIcon icon="bars" color='#fff' />
+                <ul>
+                  <li>
+                    <Link className='link href' to='/pagina-inicial'>Início</Link>
+                  </li>
+                  <li>
+                    <Link className='link href' to='/filmes'>Filmes</Link>
+                  </li>
+                  <li>
+                    <Link className='link href' to='/series'>Séries</Link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </nav>
@@ -84,9 +102,6 @@ export const Header: React.FC = () => {
             </Link>
           </div>
         </div>
-        
-
-        
       </header>
 
     </>
