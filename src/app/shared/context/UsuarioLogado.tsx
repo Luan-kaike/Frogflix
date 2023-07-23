@@ -27,7 +27,7 @@ export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProps> = ({children})
   const logout = useCallback((name:string) => {
     setName(name)
 
-    const newIcon = name[0]
+    const newIcon = name[0].toLowerCase()
     const newColor = getPaletteUser()
     setIcon({userIcon: newIcon, userColor: newColor,})
   }, [])

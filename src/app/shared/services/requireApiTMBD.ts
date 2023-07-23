@@ -7,12 +7,15 @@ interface IRequireApiTMBDProps{
     media: 'tv' | 'movie' | 'search' | 'person' | 'genre', 
     resource: 'popular' | 'upcoming' | 'top_rated' | 'person' |  number,
     imgSize: 'w92' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'original',
-    objConfig?: IObjConfig
+    objConfig?: IObjConfig,
+    endPointExtra?: 'videos' | 'recommendations' | 'similar'
   ): Promise<object> | React.ReactNode
 }
 
-export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig) => {
+export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra) => {
   let append_to_response = 'append_to_response='
+
+  const endPoint = endPointExtra? `/${endPointExtra}` : ''
 
   if(objConfig){
     const objConfigKeys = Object.keys(objConfig)
@@ -21,12 +24,12 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     });
   };
 
-  const URL = `https://api.themoviedb.org/3/${media}/${resource}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&language=pt-BR&include_adult=false`;
+  const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&language=pt-BR&include_adult=false`;
 
   const response = await fetch(URL);
   const data = await response.json();
   const medias = data.results? data.results : [data]
-  console.dir(medias)
+  console.log(medias)
   
   const objMedias = await Promise.all(medias.map(async (m: any) => {
 
@@ -37,7 +40,7 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
 
     // get poster
     const posterURL = m.poster_path;
-    const poster = await getImage(posterURL, imgSize);
+    const poster = m.poster_path? await getImage(posterURL, imgSize) : 'ola'
 
     // get companies
     const companies = m.production_companies;
@@ -114,3 +117,4 @@ const getImage = async (imgUrl: string, imgSize: string) => {
 
   return objectURL;
 };
+

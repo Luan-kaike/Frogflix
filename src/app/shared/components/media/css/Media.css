@@ -1,5 +1,6 @@
 .Media{
   margin-inline: 1.5vw;
+  max-width: 220px;
 }
 
 .Media > div{

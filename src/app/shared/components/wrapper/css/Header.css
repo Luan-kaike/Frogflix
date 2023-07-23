@@ -110,7 +110,11 @@
   font-size: max(13px,2.5vw);
 }
 
-@media screen and (max-width: 280px){
+@media screen and (max-width: 380px){
+  .Header{
+    justify-content: space-around;
+  }
+
   .Header > .contentLeft{
     flex-direction: row-reverse;
     padding-left: 5%;
@@ -125,7 +129,6 @@
     background-color: #000;
     position: absolute;
     top: max(50px,7vw);
-    left: 15px;
   }
 
   .Header > div > nav > ul > li > ul > li{

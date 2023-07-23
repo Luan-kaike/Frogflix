@@ -35,6 +35,9 @@ body{
     border: 3px #ccc solid;
   }
 
+.displayNone{
+  display: none;
+}
 
 .loading{
   display: flex;

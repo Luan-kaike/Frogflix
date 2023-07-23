@@ -17,7 +17,7 @@ export const Media: React.FC<IMediaProps> =
 ({title, poster, media, id, vote}) => {
   return(
     <Link key={`${id} ${title}`} className="Media Link" 
-    to={`/descricao?id=${media}-${id}`}>
+    to={`/descricao/${media}/${id}`}>
 
       <div key={id}>
         <img src={poster} alt={title}/>
