@@ -52,8 +52,18 @@ body{
 .href{
   cursor: pointer;
   padding-bottom: 2px;
+  user-select: none;
 }
-.href:hover{
+.href:hover:not(.active){
+  padding-bottom: 2px;
+  filter: opacity(80%);
+  border-bottom: 1px #fff solid;
+}
+
+.active{
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
   padding-bottom: 2px;
   filter: opacity(80%);
   border-bottom: 1px #fff solid;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ interface IMediaProps{
   id: number | undefined;
 }
 
-export const Media: React.FC<IMediaProps> = 
+const media: React.FC<IMediaProps> = 
 ({title, poster, media, id, vote}) => {
   return(
     <Link key={`${id} ${title}`} className="Media Link" 
@@ -24,7 +24,8 @@ export const Media: React.FC<IMediaProps> =
         <p className="title">{title}</p>
         <p><FontAwesomeIcon color="#ff0" icon='star'/>{vote}</p>
       </div>
-
     </Link>
   );
 }
+
+export const Media = memo( media )

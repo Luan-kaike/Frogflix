@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -16,6 +16,21 @@ export const Header: React.FC = () => {
 
   const divSearch = useRef<HTMLDivElement>(null)
   const inputSearch = useRef<HTMLInputElement>(null)
+
+  const statusURL = useMemo(() => {
+    let status 
+    switch (window.location.pathname) {
+      case '/pagina-inicial':
+        status = 'main'
+        break;
+      case '/entrar':
+        status = 'login'
+        break;
+      default:
+        status = 'desc'
+    }
+    return status
+  }, [])
 
   const closeBarSearch = useCallback((e: any) => {
     if(e.key === 'Escape'){
@@ -68,13 +83,21 @@ export const Header: React.FC = () => {
                 <FontAwesomeIcon icon="bars" color='#fff' />
                 <ul>
                   <li>
-                    <Link className='link href' to='/pagina-inicial'>Início</Link>
+                    <Link 
+                      className={`link href ${statusURL === 'main'? 'active' : ''}`} to='/pagina-inicial'>
+                        Início
+                    </Link>
                   </li>
                   <li>
-                    <Link className='link href' to='/filmes'>Filmes</Link>
+                    <Link 
+                     className={`link href ${statusURL === 'movie'? 'active' : ''}`} to='/filmes'>
+                      Filmes
+                    </Link>
                   </li>
                   <li>
-                    <Link className='link href' to='/series'>Séries</Link>
+                    <Link  className={`link href ${statusURL === 'tv'? 'active' : ''}`} to='/series'>
+                      Séries
+                    </Link>
                   </li>
                 </ul>
               </li>

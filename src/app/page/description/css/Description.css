@@ -21,17 +21,16 @@
 
 .Description > div:not(.DisplayCaseHorizontal) > aside{
   width: 100vw;
-  height: 70vh;
-  margin: max(5px, min(1rem, 1vw));
+  margin: max(1rem, 1vw);
 }
 
 .Description > div > aside > .infoMain > h1{
-  margin-bottom: max(5px, min(1rem, 1vw));
-  font-size: max(18px, min(3rem, 2.5vw));
+  margin-bottom: 10px;
+  font-size: min(35px, max(20px, 3.5vw));
 }
 
 .Description > div > aside > .infoMain > h3{
-  font-size: max(13px, min(3rem, 2vw));
+  font-size: min(30px, max(18px, 3vw));
 }
 
 .Description > div > aside > .infoSecond > h3{
@@ -46,16 +45,16 @@
 .Description > div > aside > .infoThird{
   margin-left: max(2px, 1vw);
   background-color: #000;
-  padding: max(5px, min(.5rem, 1vw));
-  font-size: max(10px, min(.8rem, 2vw));
+  padding: min(15px, max(8px, 1vw));
+  font-size: min(15px, max(10px, 2vw));
   border: 1px #fff solid;
   border-radius: 15px;
-  width: max(200px, 40%);
+  width: max(200px, 60vw);
 }
 
 .Description > div > aside > .infoThird > .overview{
-  margin: max(5px, min(1rem, 1vw));
-  text-indent: max(5px, min(1rem, 1vw));
+  margin: max(8px, 1vw);
+  text-indent: max(1rem, 1vw);
 }
 
 
