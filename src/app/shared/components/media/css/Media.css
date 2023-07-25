@@ -1,6 +1,7 @@
 .Media{
   margin-inline: 1.5vw;
   max-width: 220px;
+  max-height: 390px;
 }
 
 .Media > div{
@@ -8,8 +9,8 @@
   grid-template-rows: repeat(3, auto);
   grid-row-gap: max(5px, .5vw);
   color: #fff;
-  padding: 1vw;
   height: 100%;
+  padding: 1vw;
   background-color: black;
   border-radius: 15px;
 }

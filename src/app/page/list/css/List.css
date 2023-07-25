@@ -1,0 +1,12 @@
+.List > .loading{
+  width: 100vw;
+  height: 100vh;
+}
+
+.List > aside{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vw;
+  justify-content: center;
+}

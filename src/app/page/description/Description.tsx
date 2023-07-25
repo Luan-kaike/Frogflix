@@ -18,8 +18,7 @@ export const Description = () => {
   const { id, media } = useParams()
 
   useEffect(() => {
-    const executeRequire = async () => {
-      
+    const executeRequire = async () => {  
       if(id && media){
         const objConfig = {
           similar: true,

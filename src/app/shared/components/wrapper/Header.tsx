@@ -19,16 +19,12 @@ export const Header: React.FC = () => {
 
   const statusURL = useMemo(() => {
     let status 
-    switch (window.location.pathname) {
-      case '/pagina-inicial':
-        status = 'main'
-        break;
-      case '/entrar':
-        status = 'login'
-        break;
-      default:
-        status = 'desc'
-    }
+    const p = window.location.pathname
+
+    if(p.includes('/pagina-inicial')) status = 'main'
+    else if(p.includes('/entrar')) status = 'login'
+    else if(p.includes('/lista/movie/popular')) status = 'movie'
+    else if(p.includes('/lista/tv/popular')) status = 'tv'
     return status
   }, [])
 
@@ -90,12 +86,12 @@ export const Header: React.FC = () => {
                   </li>
                   <li>
                     <Link 
-                     className={`link href ${statusURL === 'movie'? 'active' : ''}`} to='/filmes'>
+                    className={`link href ${statusURL === 'movie'? 'active' : ''}`} to='/lista/movie/popular/1'>
                       Filmes
                     </Link>
                   </li>
                   <li>
-                    <Link  className={`link href ${statusURL === 'tv'? 'active' : ''}`} to='/series'>
+                    <Link  className={`link href ${statusURL === 'tv'? 'active' : ''}`} to='/lista/tv/popular/1'>
                       Séries
                     </Link>
                   </li>

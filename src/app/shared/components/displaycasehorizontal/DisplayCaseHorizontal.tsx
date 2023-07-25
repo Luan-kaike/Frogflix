@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { requireApiTMBD } from "../../services";
 import { Media } from '../index'
 import './css/DisplayCaseHorizontal.css'
+import { Link } from "react-router-dom";
 
 
 interface IDisplayCaseHorizontalProps {
@@ -34,6 +35,7 @@ export const DisplayCaseHorizontal = React.forwardRef
     const executeRequire = async () => {
       const mediaData = 
       await requireApiTMBD(media, resource, imgSize, undefined, endPointExtra);
+      
       Array.isArray(mediaData)? 
         setContent(mediaData.map((m: any) => (
             {
@@ -54,7 +56,10 @@ export const DisplayCaseHorizontal = React.forwardRef
 
   return(
       <div className={`DisplayCaseHorizontal  ${content[0]?? 'displayNone'}`} style={styleDisplay}>
-        <h1>{displayTitle}</h1>
+        <h1>
+          {displayTitle}
+          <Link className="link" to={`/lista/${media}/${resource}/1`}>Mais</Link>
+        </h1>
 
         <aside ref={ref} 
         className={content[0]? content[0].load? 'loading' : '' : 'displayNone'}>
