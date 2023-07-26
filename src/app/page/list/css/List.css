@@ -10,3 +10,50 @@
   width: 100vw;
   justify-content: center;
 }
+
+.List > ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-block: max(20px, 10vw);
+  align-items: center;
+  list-style: none;
+}
+
+.List > ul > li{
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+  background-color: #000;
+  font-weight: 600;
+  padding: max(4px, min(10px, 1vw));
+  margin: 2px;
+}
+
+.List > ul > li > svg > path{
+  pointer-events: none
+}
+
+.List > ul > .current{
+  pointer-events: none;
+  filter: invert(100%);
+}
+
+.List > ul > div{
+  cursor: default;
+  user-select: none;
+  font-weight: 1000;
+  text-align: end;
+  color: #fff;
+  padding: max(4px, min(10px, 1vw));
+  margin: 2px;
+}
+
+.List > ul > li:hover:not(.current){
+  filter: opacity(80%);
+  filter: invert(100%);
+}
+
+.List > ul > li:active{
+  filter: invert(0);
+}

@@ -35,7 +35,10 @@ export const Description = () => {
             objConfig
           );
 
-        Array.isArray(mediaData)? setContent(mediaData[0]) : setContent(null);
+        if (typeof mediaData === 'object' && mediaData !== null){
+          const medias: any = mediaData;
+          setContent(medias.result);
+        }else setContent(null);
       }
     };
     executeRequire();

@@ -8,11 +8,12 @@ interface IRequireApiTMBDProps{
     resource: 'popular' | 'upcoming' | 'top_rated' | 'person' |  number,
     imgSize: 'w92' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'original',
     objConfig?: IObjConfig,
-    endPointExtra?: 'videos' | 'recommendations' | 'similar'
+    endPointExtra?: 'videos' | 'recommendations' | 'similar',
+    page?: number | string
   ): Promise<object> | React.ReactNode
 }
 
-export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra) => {
+export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra, page) => {
   let append_to_response = 'append_to_response='
 
   const endPoint = endPointExtra? `/${endPointExtra}` : ''
@@ -24,12 +25,12 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     });
   };
 
-  const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&language=pt-BR&include_adult=false`;
+  const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&page=${page?? 1}&language=pt-BR&include_adult=false`;
 
   const response = await fetch(URL);
   const data = await response.json();
   const medias = data.results? data.results : [data]
-  console.log(medias)
+  const pageTotal = data.total_pages
   
   const objMedias = await Promise.all(medias.map(async (m: any) => {
 
@@ -105,7 +106,7 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     };
   }));
 
-  return objMedias;
+  return { result: objMedias, page_total: pageTotal};
 };
 
 const getImage = async (imgUrl: string, imgSize: string) => {

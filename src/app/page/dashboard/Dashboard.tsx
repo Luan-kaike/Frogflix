@@ -29,7 +29,8 @@ export const Dashboard = () => {
       media: 'tv',
       resource: 'top_rated'
     },
-  ]
+  ];
+  
   return(
       <Wrapper pag="" heightAuto>
 

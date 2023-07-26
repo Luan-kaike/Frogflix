@@ -22,31 +22,17 @@ export const DisplayCaseHorizontal = React.forwardRef
       marginBottom: last? '' : 'max(30px, 15vw)'
   };
 
-  interface IContentItems{
-    load?: boolean;
-    title?: string;
-    poster?: string;
-    vote?: number;
-    id?: number;
-  }
-  const [content, setContent] = useState<IContentItems[]>([{ load: true }]);
+  const [content, setContent] = useState<any>([{ load: true }]);
 
   useEffect(() => {
     const executeRequire = async () => {
       const mediaData = 
       await requireApiTMBD(media, resource, imgSize, undefined, endPointExtra);
       
-      Array.isArray(mediaData)? 
-        setContent(mediaData.map((m: any) => (
-            {
-              title: m.title,
-              poster: m.poster,
-              vote: m.vote,
-              id: m.id
-            }
-        )))
-      :
-        console.log('ops')
+      if (typeof mediaData === 'object' && mediaData !== null){
+        const medias: any = mediaData;
+        setContent(medias.result);
+      }else setContent(null);
     };
 
     executeRequire();
@@ -64,7 +50,7 @@ export const DisplayCaseHorizontal = React.forwardRef
         <aside ref={ref} 
         className={content[0]? content[0].load? 'loading' : '' : 'displayNone'}>
           { 
-            content.map(({title, id, poster, vote, load}) => {
+            content.map(({title, id, poster, vote, load}: any) => {
               const content = (
                 <Media
                   poster={poster}
