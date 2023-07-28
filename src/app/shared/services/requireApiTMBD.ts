@@ -5,18 +5,20 @@ interface IObjConfig{
 interface IRequireApiTMBDProps{
   (
     media: 'tv' | 'movie' | 'search' | 'person' | 'genre', 
-    resource: 'popular' | 'upcoming' | 'top_rated' | 'person' |  number,
+    resource: 'popular' | 'top_rated' | 'tv' | 'movie' | number,
     imgSize: 'w92' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'original',
     objConfig?: IObjConfig,
     endPointExtra?: 'videos' | 'recommendations' | 'similar',
-    page?: number | string
+    page?: number | string,
+    query?: string
   ): Promise<object> | React.ReactNode
 }
 
-export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra, page) => {
+export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra, page, query) => {
   try{
 
     let append_to_response = 'append_to_response='
+    const Query = query? `query=${query}&` : ''
     const endPoint = endPointExtra? `/${endPointExtra}` : ''
 
     if(objConfig){
@@ -26,11 +28,12 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
       });
     };
 
-    const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&page=${page?? 1}&language=pt-BR&include_adult=false`;
+    const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${Query}${append_to_response}&page=${page?? 1}&language=pt-BR&include_adult=false`;
 
     const response = await fetch(URL);
     const data = await response.json();
     const medias = data.results? data.results : [data]
+    console.log(medias)
     const pageTotal = data.total_pages
     
     const objMedias = await Promise.all(medias.map(async (m: any) => {
@@ -92,6 +95,8 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
       // get overview
       const overview = m.overview? m.overview : null;
 
+      // get media
+      const Media = media === ('tv' || 'movie')? media : resource
       return {
         date: date,
         time: time,
@@ -104,11 +109,12 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
         vote: vote,
         poster: poster,
         id: id,
+        media: Media,
       };
     }));
     return { result: objMedias, page_total: pageTotal, error: false };
   }catch(err: any){
-    console.log(`durante requisição para o TMDB ocorreu esse erro:\n${err}`)
+    console.log(`durante a requisição para o TMDB ocorreu esse erro:\n${err}`)
     return { error: true, typeError: err, errorCode: err.code };
   };
 };

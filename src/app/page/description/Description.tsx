@@ -115,7 +115,7 @@ export const Description = () => {
   }, [content, id, media])
 
   return(
-    <Wrapper pag="Description" heightAuto>
+    <Wrapper pag="Description">
         {loadContent()}
     </Wrapper>
   );

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 interface IDisplayCaseHorizontalProps {
     media: 'tv' | 'movie',
-    resource: 'popular' | 'upcoming' | 'top_rated' | number,
+    resource: 'popular' | 'top_rated' | number,
     imgSize: "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original",
     endPointExtra?: 'videos' | 'recommendations' | 'similar',
     displayTitle: string;

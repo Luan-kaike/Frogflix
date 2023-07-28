@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
@@ -9,49 +9,63 @@ import './css/Header.css';
 
 export const Header: React.FC = () => {
 
-  const { name, icon } = useUsuarioLogado()
-  const { userColor, userIcon } = icon as IStateIcon
+  const nav = useNavigate();
+  const { name, icon } = useUsuarioLogado();
+  const { userColor, userIcon } = icon as IStateIcon;
 
-  const [iconSearch, setIconSearch] = useState(true)
+  const [iconSearch, setIconSearch] = useState(true);
 
-  const divSearch = useRef<HTMLDivElement>(null)
-  const inputSearch = useRef<HTMLInputElement>(null)
+  const divSearch = useRef<HTMLDivElement>(null);
+  const inputSearch = useRef<HTMLInputElement>(null);
 
   const statusURL = useMemo(() => {
-    let status 
-    const p = window.location.pathname
+    let status;
+    const p = window.location.pathname;
 
-    if(p.includes('/pagina-inicial')) status = 'main'
-    else if(p.includes('/entrar')) status = 'login'
-    else if(p.includes('/lista/movie/popular')) status = 'movie'
-    else if(p.includes('/lista/tv/popular')) status = 'tv'
-    return status
+    if(p.includes('/pagina-inicial')) status = 'main';
+    else if(p.includes('/entrar')) status = 'login';
+    else if(p.includes('/lista/movie/popular')) status = 'movie';
+    else if(p.includes('/lista/tv/popular')) status = 'tv';
+    return status;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.location.pathname])
+  }, [window.location.pathname]);
 
   const closeBarSearch = useCallback((e: any) => {
     if(e.key === 'Escape'){
       if(divSearch.current){
-        setIconSearch(true)
+        setIconSearch(true);
         divSearch.current.style.transform = '';
       }
     }
-  }, [])
+  }, []);
 
   const handleClickSearch = useCallback(() => {
-    setIconSearch(!iconSearch)
+    setIconSearch(!iconSearch);
     if(divSearch.current){
       if(iconSearch){
-        inputSearch.current?.focus()
+        inputSearch.current?.focus();
         divSearch.current.style.transform = 'translateY(max(50px,7vw))'; 
-        window.addEventListener('keydown', closeBarSearch)
+        window.addEventListener('keydown', closeBarSearch);
       }else{
+        if(inputSearch.current) inputSearch.current.value = '';
         divSearch.current.style.transform = '';
-        window.removeEventListener('keydown', closeBarSearch)
-      }
-    }
+        window.removeEventListener('keydown', closeBarSearch);
+      };
+    };
   }, [iconSearch, closeBarSearch]);
 
+  const handleSearch = useCallback(() => {
+    const searchValue = inputSearch.current?.value.replaceAll(' ', '+')
+    console.log(`/lista/search/${searchValue}`)
+    nav(`/lista/search/${searchValue}/1`);
+    if(inputSearch.current && divSearch.current) {
+      setIconSearch(true);
+      inputSearch.current.value = '';
+      divSearch.current.style.transform = '';
+      window.removeEventListener('keydown', closeBarSearch);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputSearch])
   return (
     <>
       <div className="HeaderPlaceHolder"></div>
@@ -59,9 +73,11 @@ export const Header: React.FC = () => {
       <div ref={divSearch} className="HeaderDivSearch">
         <FontAwesomeIcon icon="magnifying-glass" color='#000' 
           flip="horizontal"
+          onClick={handleSearch}
         />
         <input ref={inputSearch} type="text"
           placeholder="Pesquise filmes ou series"
+          onKeyDown={(e) => e.key === 'Enter'? handleSearch() : null}
         />
       </div>
 
@@ -125,5 +141,5 @@ export const Header: React.FC = () => {
       </header>
 
     </>
-  )
-}
+  );
+};

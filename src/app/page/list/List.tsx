@@ -57,15 +57,44 @@ export const List = () => {
   useEffect(() => {
     const executeRequire = async () => {
       if(recurse && media){
-        const endPoint = recurse.includes('-')?recurse.split('-')[1] : undefined
-        const mediaData = 
-          await requireApiTMBD(
-            media as 'tv' | 'movie', 
-            recurse as "popular" | "upcoming" | "top_rated", 
-            'w185', undefined, 
-            endPoint as "recommendations" | "similar" | undefined,
-            page
-          );
+        let mediaData
+        if(media === 'search'){
+          const mediaDataMovie: any = 
+            await requireApiTMBD(
+              'search', 
+              'movie', 
+              'w185', undefined, undefined,
+              page,
+              recurse
+            );
+          const mediaDataTv: any = 
+            await requireApiTMBD(
+              'search', 
+              'tv', 
+              'w185', undefined, undefined,
+              page,
+              recurse
+            );
+          if(!mediaDataMovie.error && !mediaDataTv.error){
+            const data = Array.isArray(mediaDataMovie?.result)? mediaDataMovie.result.concat(mediaDataTv.result) : null;
+            const pagesTotal = Math.floor((mediaDataMovie.page_total + mediaDataTv.page_total) / 20);
+            mediaData = {
+              result: data, 
+              page_total: pagesTotal, 
+              error: data? false : true
+            }
+          }
+        }else{
+          const endPoint = recurse.includes('-')?recurse.split('-')[1] :  undefined;
+          mediaData = 
+            await requireApiTMBD(
+              media as 'tv' | 'movie', 
+              recurse as "popular" | "top_rated", 
+              'w185', undefined, 
+              endPoint as "recommendations" | "similar" | undefined,
+              page
+            );
+        }
         const medias: any = mediaData;
 
         if (typeof medias === 'object' && medias !== null && !medias.error){
@@ -73,8 +102,8 @@ export const List = () => {
           setContent(medias.result);
         }else 
           if(media === ('movies' || 'tv')) nav(`/lista/${media}/popular/1`);
-          else nav(`/lista/movie/popular/1`)
-      }
+          else nav(`/lista/movie/popular/1`);
+      };
     };
     const updateBtnsNavigated = async () => {
       if(operations.updBtn){
@@ -102,12 +131,12 @@ export const List = () => {
           setBtnsNavigated(btnsArray)
         }
         else{
-          const btnsArray: any[] = ['<']
+          const btnsArray: any[] = ['<'];
           for(let i=1; i <= totalPage; i++){
-            btnsArray.push(i)
+            btnsArray.push(i);
           }
-          btnsArray.push('>')
-          setBtnsNavigated(btnsArray)
+          btnsArray.push('>');
+          setBtnsNavigated(btnsArray);
         }
     };
     const initEffect = async () => {
@@ -132,13 +161,15 @@ export const List = () => {
         poster: string;
         vote: number;
         id: number;
+        media: string;
       }
       return(
         <>
           <aside>
             {
               content.map(
-                ({title, poster, vote, id}: IContentMap, i: number) => {
+                ({title, poster, vote, id, media}: IContentMap, i: number) => {
+                  console.log(media)
                   return(
                     <Media
                       title={title}
@@ -170,7 +201,8 @@ export const List = () => {
                     <li onClick={handleClickBnt} key={`${b}-${i}`} 
                     className={`${b === page? 'current' : ''} 
                     ${((b === '<' && operations.arrow.L) || 
-                       (b === '>' && operations.arrow.R))? 'displayNone' : ''}`}
+                       (b === '>' && operations.arrow.R) ||
+                       (b === '>' && i === 1))? 'displayNone' : ''}`}
                     >
                       {b}
                     </li>
@@ -192,7 +224,7 @@ export const List = () => {
   }, [btnsNavigated, content, media, page]);
 
   return(
-    <Wrapper pag="List" heightAuto>
+    <Wrapper pag="List">
       { loadContent() }
     </Wrapper>
   );
