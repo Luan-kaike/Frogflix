@@ -34,17 +34,18 @@ export const Description = () => {
             'w185', 
             objConfig
           );
+        const medias: any = mediaData;
 
-        if (typeof mediaData === 'object' && mediaData !== null){
-          const medias: any = mediaData;
-          setContent(medias.result);
-        }else setContent(null);
+        if (!medias.error){
+          setContent(medias.result[0]);
+        }else console.log('ocorreu um erro ao carregar essa pagina');
       }
+      displayReco.current?.scrollTo(0, 0)
+      displaySimi.current?.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     };
     executeRequire();
-    displayReco.current?.scrollTo(0, 0)
-    displaySimi.current?.scrollTo(0, 0)
-    window.scrollTo(0, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, media]);
 
   const loadContent = useCallback(() => {
@@ -75,7 +76,6 @@ export const Description = () => {
                   {content.date? `${content.date.split('-')[0]}` : ''}
                 </h3>
               </div>
-              
               <div className="infoSecond">
                 <h3>
                   <FontAwesomeIcon color='#ff0' icon='star'/> {content.vote}

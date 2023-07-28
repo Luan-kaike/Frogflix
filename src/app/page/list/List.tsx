@@ -9,14 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 export const List = () => {
   const { media, recurse, pag } = useParams()
+  const nav = useNavigate();
+
   const page = useMemo(() => {
     const regex = /[^0-9]/g
     const pageString = pag?.replace(regex, '')
     const Page = pageString? parseInt(pageString)?? 1:1
     return Page
-  }, [pag])
-  const nav = useNavigate()
-
+  }, [pag]);
   const [totalPage, setTotalPage] = useState<number>(0)
   const [content, setContent] = useState<any>(null)
   const [btnsNavigated, setBtnsNavigated] = useState<any[]>([]);
@@ -35,27 +35,49 @@ export const List = () => {
     nav(`${URLbase}${value}`)
   }
 
+  const operations = useMemo(() => {
+    const totalPMore5 = totalPage > 5 
+    const endPages = page+4 >= totalPage
+
+    const updBtn = totalPMore5? !(endPages) : false
+    const ellipsis = totalPMore5 && endPages
+    const arrowR = page === totalPage
+    const arrowL = page === 1
+    return { 
+      updBtn: updBtn, 
+      ellipsis: ellipsis,  
+      arrow: {
+        L: arrowL,
+        R: arrowR,
+      },
+      totalPMore5: totalPMore5
+    }
+  }, [page, totalPage])
+
   useEffect(() => {
     const executeRequire = async () => {
       if(recurse && media){
+        const endPoint = recurse.includes('-')?recurse.split('-')[1] : undefined
         const mediaData = 
           await requireApiTMBD(
             media as 'tv' | 'movie', 
             recurse as "popular" | "upcoming" | "top_rated", 
-            'w185', undefined, undefined,
+            'w185', undefined, 
+            endPoint as "recommendations" | "similar" | undefined,
             page
           );
-        
-        if (typeof mediaData === 'object' && mediaData !== null){
-          const medias: any = mediaData;
+        const medias: any = mediaData;
+
+        if (typeof medias === 'object' && medias !== null && !medias.error){
           setTotalPage(medias.page_total > 500? 500 : medias.page_total);
           setContent(medias.result);
-        }else setContent(null);
+        }else 
+          if(media === ('movies' || 'tv')) nav(`/lista/${media}/popular/1`);
+          else nav(`/lista/movie/popular/1`)
       }
     };
     const updateBtnsNavigated = async () => {
-      
-      if(!(page+4 >= totalPage)){
+      if(operations.updBtn){
         const btnsArray = []
         for(let i=-1; i < 6; i++){
           let inner
@@ -70,11 +92,23 @@ export const List = () => {
           btnsArray.push(inner)
         }
         setBtnsNavigated(btnsArray)
-      }else{
-        const btnsArray = ['<' ,496 ,497 , 498, 499, 500, '>']
-        setBtnsNavigated(btnsArray)
-      }
-      
+      }else
+        if(totalPage > 5){
+          const btnsArray = ['<', 1]
+          for(let i=0; i <= 4; i++){
+            btnsArray.push(totalPage - (4-i))
+          }
+          btnsArray.push('>')
+          setBtnsNavigated(btnsArray)
+        }
+        else{
+          const btnsArray: any[] = ['<']
+          for(let i=1; i <= totalPage; i++){
+            btnsArray.push(i)
+          }
+          btnsArray.push('>')
+          setBtnsNavigated(btnsArray)
+        }
     };
     const initEffect = async () => {
       await executeRequire();
@@ -84,11 +118,15 @@ export const List = () => {
     
     initEffect();
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [media, page, recurse, totalPage]);
 
   const loadContent = useCallback(() => {
     if(content){
-      const style = { marginBlock: '1.5vw' }
+      const style = { 
+        marginBlock: '1.5vw',
+        height: '390px',
+      }
       interface IContentMap{
         title: string;
         poster: string;
@@ -122,12 +160,20 @@ export const List = () => {
               btnsNavigated.map((b, i) => {
                 return(
                   <>
-                    <li onClick={handleClickBnt} key={`${b}-${i}`} className=
-                    {`${b == page? 'current' : ''} 
-                    ${((i === 0 && page === 1) || (i === 6 && page >= totalPage))? 'displayNone' : ''}`}>
+                    { 
+                      (operations.totalPMore5 &&
+                      ((b === totalPage && !(operations.ellipsis)) ||
+                       (b === totalPage-4 && operations.ellipsis)))? 
+                        <div key={`...-${i}`}>• • •</div> : null
+                    }
+
+                    <li onClick={handleClickBnt} key={`${b}-${i}`} 
+                    className={`${b === page? 'current' : ''} 
+                    ${((b === '<' && operations.arrow.L) || 
+                       (b === '>' && operations.arrow.R))? 'displayNone' : ''}`}
+                    >
                       {b}
                     </li>
-                    { i === 4? <div className={page+4 >= totalPage? 'displayNone' : ''} key={`...-${i}`}>• • •</div> : null }
                   </>
                 )
               })
@@ -142,11 +188,12 @@ export const List = () => {
         <FontAwesomeIcon className='load' color="#fff" icon='spinner'/>
       </aside>
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [btnsNavigated, content, media, page]);
 
   return(
     <Wrapper pag="List" heightAuto>
       { loadContent() }
     </Wrapper>
-  )
-}
+  );
+};

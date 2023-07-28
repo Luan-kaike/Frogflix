@@ -14,99 +14,103 @@ interface IRequireApiTMBDProps{
 }
 
 export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgSize, objConfig, endPointExtra, page) => {
-  let append_to_response = 'append_to_response='
+  try{
 
-  const endPoint = endPointExtra? `/${endPointExtra}` : ''
+    let append_to_response = 'append_to_response='
+    const endPoint = endPointExtra? `/${endPointExtra}` : ''
 
-  if(objConfig){
-    const objConfigKeys = Object.keys(objConfig)
-    objConfigKeys.forEach((key) => {
-      append_to_response += objConfig[key]? `${key},` : ''
-    });
-  };
-
-  const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&page=${page?? 1}&language=pt-BR&include_adult=false`;
-
-  const response = await fetch(URL);
-  const data = await response.json();
-  const medias = data.results? data.results : [data]
-  const pageTotal = data.total_pages
-  
-  const objMedias = await Promise.all(medias.map(async (m: any) => {
-
-    // get basic
-    const title = m.title ? m.title : m.name;
-    const vote = m.vote_average.toFixed(1);
-    const id = m.id;
-
-    // get poster
-    const posterURL = m.poster_path;
-    const poster = m.poster_path? await getImage(posterURL, imgSize) : 'ola'
-
-    // get companies
-    const companies = m.production_companies;
-    if(companies){
-      companies.map( async (c: any) => {
-        c.logo_path = c.logo_path? await getImage(c.logo_path, imgSize) : null;
+    if(objConfig){
+      const objConfigKeys = Object.keys(objConfig)
+      objConfigKeys.forEach((key) => {
+        append_to_response += objConfig[key]? `${key},` : ''
       });
     };
 
-    // get money status
-    interface IMoneyItems{
-      budget?: number | null;
-      revenue?: number | null;
-      gain?: number | null;
-    };
-    const money: IMoneyItems = {};
-    const budget = m.budget? m.budget : null;
-    const revenue = m.revenue? m.revenue : null;
-    if(budget && revenue){
-      const gain = revenue - budget;
-      money.budget = budget;
-      money.revenue = revenue;
-      money.gain = gain;
-    };
+    const URL = `https://api.themoviedb.org/3/${media}/${resource}${endPoint}?api_key=fd32e96e40912048aa38d4cb763d2693&${append_to_response}&page=${page?? 1}&language=pt-BR&include_adult=false`;
 
-    // get time
-    const calcTime = () => {
-      const timeInMin = m.runtime;
-      if(timeInMin){
-        const hours = (timeInMin / 60).toFixed(0);
-        const minutes = (timeInMin % 60).toFixed(0);
-        return `${hours}h ${minutes}min`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    const medias = data.results? data.results : [data]
+    const pageTotal = data.total_pages
+    
+    const objMedias = await Promise.all(medias.map(async (m: any) => {
+
+      // get basic
+      const title = m.title ? m.title : m.name;
+      const vote = m.vote_average.toFixed(1);
+      const id = m.id;
+
+      // get poster
+      const posterURL = m.poster_path;
+      const poster = m.poster_path? await getImage(posterURL, imgSize) : 'ola'
+
+      // get companies
+      const companies = m.production_companies;
+      if(companies){
+        companies.map( async (c: any) => {
+          c.logo_path = c.logo_path? await getImage(c.logo_path, imgSize) : null;
+        });
       };
-    };
-    const time = calcTime();
 
-    // get date
-    const date = m.release_date? m.release_date : 
-                m.first_air_date? m.first_air_date : null;
+      // get money status
+      interface IMoneyItems{
+        budget?: number | null;
+        revenue?: number | null;
+        gain?: number | null;
+      };
+      const money: IMoneyItems = {};
+      const budget = m.budget? m.budget : null;
+      const revenue = m.revenue? m.revenue : null;
+      if(budget && revenue){
+        const gain = revenue - budget;
+        money.budget = budget;
+        money.revenue = revenue;
+        money.gain = gain;
+      };
 
-    // get genres
-    const genres = m.genres? m.genres.map((g:any) => g.name) : null;
+      // get time
+      const calcTime = () => {
+        const timeInMin = m.runtime;
+        if(timeInMin){
+          const hours = (timeInMin / 60).toFixed(0);
+          const minutes = (timeInMin % 60).toFixed(0);
+          return `${hours}h ${minutes}min`;
+        };
+      };
+      const time = calcTime();
 
-    // get tagline
-    const tagline = m.tagline? m.tagline : null;
+      // get date
+      const date = m.release_date? m.release_date : 
+                  m.first_air_date? m.first_air_date : null;
 
-    // get overview
-    const overview = m.overview? m.overview : null;
+      // get genres
+      const genres = m.genres? m.genres.map((g:any) => g.name) : null;
 
-    return {
-      date: date,
-      time: time,
-      overview: overview,
-      companies: companies,
-      genres: genres,
-      title: title,
-      tagline: tagline,
-      money: money,
-      vote: vote,
-      poster: poster,
-      id: id,
-    };
-  }));
+      // get tagline
+      const tagline = m.tagline? m.tagline : null;
 
-  return { result: objMedias, page_total: pageTotal};
+      // get overview
+      const overview = m.overview? m.overview : null;
+
+      return {
+        date: date,
+        time: time,
+        overview: overview,
+        companies: companies,
+        genres: genres,
+        title: title,
+        tagline: tagline,
+        money: money,
+        vote: vote,
+        poster: poster,
+        id: id,
+      };
+    }));
+    return { result: objMedias, page_total: pageTotal, error: false };
+  }catch(err: any){
+    console.log(`durante requisição para o TMDB ocorreu esse erro:\n${err}`)
+    return { error: true, typeError: err, errorCode: err.code };
+  };
 };
 
 const getImage = async (imgUrl: string, imgSize: string) => {

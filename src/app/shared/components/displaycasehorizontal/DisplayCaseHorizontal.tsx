@@ -28,23 +28,21 @@ export const DisplayCaseHorizontal = React.forwardRef
     const executeRequire = async () => {
       const mediaData = 
       await requireApiTMBD(media, resource, imgSize, undefined, endPointExtra);
-      
-      if (typeof mediaData === 'object' && mediaData !== null){
-        const medias: any = mediaData;
+      const medias: any = mediaData;
+
+      if (typeof medias === 'object' && !medias.error){
         setContent(medias.result);
-      }else setContent(null);
+      }else console.log(`ocorreu um erro ao carregar o display ${displayTitle}`);
     };
 
     executeRequire();
-  }, [endPointExtra, imgSize, media, resource]);
-
-
+  }, [displayTitle, endPointExtra, imgSize, media, resource]);
 
   return(
       <div className={`DisplayCaseHorizontal  ${content[0]?? 'displayNone'}`} style={styleDisplay}>
         <h1>
           {displayTitle}
-          <Link className="link" to={`/lista/${media}/${resource}/1`}>Mais</Link>
+          <Link className="link" to={`/lista/${media}/${resource}${endPointExtra? `-${endPointExtra}` : '' }/1`}>Mais</Link>
         </h1>
 
         <aside ref={ref} 

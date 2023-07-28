@@ -26,7 +26,8 @@ export const Header: React.FC = () => {
     else if(p.includes('/lista/movie/popular')) status = 'movie'
     else if(p.includes('/lista/tv/popular')) status = 'tv'
     return status
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.location.pathname])
 
   const closeBarSearch = useCallback((e: any) => {
     if(e.key === 'Escape'){
