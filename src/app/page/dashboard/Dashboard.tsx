@@ -32,11 +32,11 @@ export const Dashboard = () => {
   ];
   
   return(
-      <Wrapper pag="">
+      <Wrapper pag="Dashboard">
         {
           displaysCase.map((d, i) => (
             <DisplayCaseHorizontal 
-              key={`${d.title} ${i}`}
+              key={`${d.title}-${i}`}
               displayTitle={d.title}
               media={d.media}
               resource={d.resource}

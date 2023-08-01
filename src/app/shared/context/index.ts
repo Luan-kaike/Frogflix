@@ -1,1 +1,1 @@
-export * from './UsuarioLogado'
+export * from './UserLogged'

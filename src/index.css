@@ -59,7 +59,6 @@ main{
   user-select: none;
 }
 .href:hover:not(.active){
-  padding-bottom: 2px;
   filter: opacity(80%);
   border-bottom: 1px #fff solid;
 }
