@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Frogflix/static/css/main.6320389e.css",
-    "main.js": "/Frogflix/static/js/main.01ae2046.js",
+    "main.css": "/Frogflix/static/css/main.69ac98de.css",
+    "main.js": "/Frogflix/static/js/main.f957bfe9.js",
     "static/js/787.b2a53059.chunk.js": "/Frogflix/static/js/787.b2a53059.chunk.js",
     "index.html": "/Frogflix/index.html",
-    "main.6320389e.css.map": "/Frogflix/static/css/main.6320389e.css.map",
-    "main.01ae2046.js.map": "/Frogflix/static/js/main.01ae2046.js.map",
+    "main.69ac98de.css.map": "/Frogflix/static/css/main.69ac98de.css.map",
+    "main.f957bfe9.js.map": "/Frogflix/static/js/main.f957bfe9.js.map",
     "787.b2a53059.chunk.js.map": "/Frogflix/static/js/787.b2a53059.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6320389e.css",
-    "static/js/main.01ae2046.js"
+    "static/css/main.69ac98de.css",
+    "static/js/main.f957bfe9.js"
   ]
 }
