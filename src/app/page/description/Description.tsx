@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import './Description.css'
 import { requireApiTMBD } from "../../shared/services";
@@ -10,6 +10,7 @@ import { DisplayCaseHorizontal } from "../../shared/components";
 
 export const Description = () => {
 
+  const nav = useNavigate();
   const [content, setContent] = useState<any>(null)
   
   const displayReco = useRef<HTMLDivElement>(null)
@@ -38,7 +39,7 @@ export const Description = () => {
 
         if (!medias.error){
           setContent(medias.result[0]);
-        }else console.log('ocorreu um erro ao carregar essa pagina');
+        }else nav('pagina-inicial');
       };
       displayReco.current?.scrollTo(0, 0);
       displaySimi.current?.scrollTo(0, 0);
@@ -49,6 +50,7 @@ export const Description = () => {
   }, [id, media]);
 
   const loadContent = useCallback(() => {
+    console.log(content)
     if(content){
       const objDisplays = [
         {
@@ -61,7 +63,7 @@ export const Description = () => {
           endPoint: 'similar',
           ref: displaySimi,
         }
-      ]
+      ];
       return(
         <>
           <div>
@@ -112,6 +114,7 @@ export const Description = () => {
         <FontAwesomeIcon className='load' color="#fff" icon='spinner'/>
       </aside>
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, id, media])
 
   return(

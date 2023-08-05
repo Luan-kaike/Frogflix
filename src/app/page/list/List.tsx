@@ -102,7 +102,7 @@ export const List = () => {
           setContent(medias.result);
         }else 
           if(media === ('movies' || 'tv')) nav(`/lista/${media}/popular/1`);
-          else nav(`/lista/movie/popular/1`);
+          else nav(`/pagina-inicial`);
       };
     };
     const updateBtnsNavigated = async () => {
