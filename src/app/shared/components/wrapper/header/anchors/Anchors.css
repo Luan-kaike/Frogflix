@@ -1,0 +1,50 @@
+
+.Anchors,
+.Anchors > li > ul{
+  display: flex;
+  list-style: none;
+}
+
+.Anchors > li > svg{
+  display: contents;
+}
+
+.Anchors > li > svg{
+  height: max(15px,2.5vw);
+}
+
+.Anchors > li > ul > li > .link{
+  margin: max(5px,.7vw);
+  font-size: max(13px,2.5vw);
+}
+
+
+
+@media screen and (max-width: 380px){
+  .Anchors > li > svg{
+    display: block;
+  }
+
+  .Anchors > li > ul{
+    display: none;
+    background-color: #000;
+    position: absolute;
+    top: max(50px,7vw);
+  }
+
+  .Anchors > li > ul > li{
+    padding: 5px;
+  }
+
+  .Anchors > li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: max(50px,7vw);
+  }
+
+  .Anchors > li:hover > ul{
+    display: block;
+  }
+}

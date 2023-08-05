@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import './DisplayCaseHorizontal.css';
 import { requireApiTMBD } from "../../services";
-import { Media } from '../index'
-import './css/DisplayCaseHorizontal.css'
+import { Media } from '../index';
 import { Link } from "react-router-dom";
 
 
@@ -19,7 +19,7 @@ interface IDisplayCaseHorizontalProps {
 export const DisplayCaseHorizontal = React.forwardRef
 <HTMLDivElement, IDisplayCaseHorizontalProps>(({media, resource, imgSize, displayTitle, last, endPointExtra}, ref?) => {
   const styleDisplay = {
-      marginBottom: last? '' : 'max(30px, 15vw)'
+      marginBottom: last? '' : 'max(30px, 15vw)',
   };
 
   const [content, setContent] = useState<any>([{ load: true }]);

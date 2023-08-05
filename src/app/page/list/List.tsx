@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import './List.css'
 import { requireApiTMBD } from "../../shared/services";
 import { Media, Wrapper } from "../../shared/components";
-import './css/List.css'
 import { useNavigate } from "react-router-dom";
 
 export const List = () => {
@@ -151,7 +151,20 @@ export const List = () => {
   }, [media, page, recurse, totalPage]);
 
   const loadContent = useCallback(() => {
+    
     if(content){
+      if(content.length === 0){
+        return(
+          <aside className="resultNone">
+            Nenhum resultado
+            <span>
+              Nenhum resultado foi encontrado para 
+              <span> {recurse}</span>
+            </span>
+          </aside>
+        );
+      };
+
       const style = { 
         marginBlock: '1.5vw',
         height: '390px',

@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import './css/Login.css'
+import './Login.css'
 import { Wrapper } from "../../shared/components";
 import { useUsuarioLogado } from "../../shared/hooks";
 
@@ -60,6 +60,7 @@ export const Login = (props: {singUp: boolean}) => {
 
         if(!id.trim())
           inputErrorDisplay(input, span, 'Esse campo é obrigatório');
+        // eslint-disable-next-line no-useless-escape
         else if(/[!@#$%&*()[\]{}|;:,.\/<>?]/.test(id))
         inputErrorDisplay(input, span, 
           'Seu nome não pode conter caracteres especiais');
@@ -90,6 +91,7 @@ export const Login = (props: {singUp: boolean}) => {
   const verificationInputs = useCallback(() => {
     const verifsIdLength = (id.trim().length < 3 || id.trim().length > 15)
     const verifsIfInputEmpty = (!password.trim() || !id.trim())
+    // eslint-disable-next-line no-useless-escape
     const verifsSpecialCharacter = /[!@#$%&*()[\]{}|;:,.\/<>?]/.test(id) 
     const verifsIfLoginUserExist = (!localStorage.getItem(id) && !props.singUp)
     const verifsIfSingUpNotExist = (localStorage.getItem(id) && props.singUp)

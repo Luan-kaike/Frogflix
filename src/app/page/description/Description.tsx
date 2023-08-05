@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from 'react-router-dom';
 
-import './css/Description.css'
+import './Description.css'
 import { requireApiTMBD } from "../../shared/services";
 import { Wrapper } from "../../shared/components";
 import { DisplayCaseHorizontal } from "../../shared/components";
@@ -39,9 +39,9 @@ export const Description = () => {
         if (!medias.error){
           setContent(medias.result[0]);
         }else console.log('ocorreu um erro ao carregar essa pagina');
-      }
-      displayReco.current?.scrollTo(0, 0)
-      displaySimi.current?.scrollTo(0, 0)
+      };
+      displayReco.current?.scrollTo(0, 0);
+      displaySimi.current?.scrollTo(0, 0);
       window.scrollTo(0, 0);
     };
     executeRequire();

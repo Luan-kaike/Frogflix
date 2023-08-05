@@ -1,7 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useUsuarioLogado } from "../../../../hooks";
 import { IStateIcon } from "../../../../context";
@@ -10,6 +10,8 @@ import './IconUser.css';
 export const IconUser: React.FC = () => {
   const { name, icon, logged, logout, remove } = useUsuarioLogado();
   const { userColor, userIcon } = icon as IStateIcon;
+
+  const nav = useNavigate()
 
   const styleUserBg = useMemo(() => {
     return {
@@ -29,7 +31,7 @@ export const IconUser: React.FC = () => {
 
       <ul>
         <li className="href" onClick={logout}>Sair</li>
-        <li className="href" onClick={() => remove(name)}>
+        <li className="href" onClick={() => {remove(name); nav('pagina-inicial')}}>
           Deletar
         </li>
       </ul>

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-import './css/Media.css'
+import './Media.css';
 
 
 interface IMediaProps{
@@ -13,7 +13,6 @@ interface IMediaProps{
   id: number | undefined;
   style?: object
 }
-
 const media: React.FC<IMediaProps> = 
 ({title, poster, media, id, vote, style}) => {
   return(
@@ -26,6 +25,6 @@ const media: React.FC<IMediaProps> =
       </div>
     </Link>
   );
-}
+};
 
-export const Media = memo( media )
+export const Media = memo(media);

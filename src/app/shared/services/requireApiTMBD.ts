@@ -33,7 +33,6 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
     const response = await fetch(URL);
     const data = await response.json();
     const medias = data.results? data.results : [data]
-    console.log(medias)
     const pageTotal = data.total_pages
     
     const objMedias = await Promise.all(medias.map(async (m: any) => {
@@ -46,30 +45,6 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
       // get poster
       const posterURL = m.poster_path;
       const poster = m.poster_path? await getImage(posterURL, imgSize) : 'ola'
-
-      // get companies
-      const companies = m.production_companies;
-      if(companies){
-        companies.map( async (c: any) => {
-          c.logo_path = c.logo_path? await getImage(c.logo_path, imgSize) : null;
-        });
-      };
-
-      // get money status
-      interface IMoneyItems{
-        budget?: number | null;
-        revenue?: number | null;
-        gain?: number | null;
-      };
-      const money: IMoneyItems = {};
-      const budget = m.budget? m.budget : null;
-      const revenue = m.revenue? m.revenue : null;
-      if(budget && revenue){
-        const gain = revenue - budget;
-        money.budget = budget;
-        money.revenue = revenue;
-        money.gain = gain;
-      };
 
       // get time
       const calcTime = () => {
@@ -101,11 +76,9 @@ export const requireApiTMBD: IRequireApiTMBDProps = async (media, resource, imgS
         date: date,
         time: time,
         overview: overview,
-        companies: companies,
         genres: genres,
         title: title,
         tagline: tagline,
-        money: money,
         vote: vote,
         poster: poster,
         id: id,

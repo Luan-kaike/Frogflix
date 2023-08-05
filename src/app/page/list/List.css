@@ -11,6 +11,27 @@
   justify-content: center;
 }
 
+.List > .resultNone{
+  align-items: center;
+  height: 50vw;
+  color: #f00;
+  flex-direction: column;
+  font-size: max(20px, min(80px, 8vw));
+  font-weight: 900;
+}
+
+.List > .resultNone > span{
+  color: #fff;
+  font-size: max(10px, min(40px, 4vw));
+  font-weight: 500;
+  margin-top: min(70px, 5vw)
+}
+
+.List > .resultNone > span > span{
+  color: #ccc;
+}
+
+
 .List > ul{
   display: flex;
   flex-direction: row;

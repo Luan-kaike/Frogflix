@@ -21,6 +21,5 @@ export const Wrapper: React.FC<IWrapperProps> =
 
       <Footer />
     </div>
-    
-  )
-}
+  );
+};

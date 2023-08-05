@@ -78,33 +78,10 @@
   height: max(20px,3vw);
 }
 
-
-
 .Header > div > .search > svg{
   height: max(15px, calc(4vw - 8px));
   padding: 4px;
   cursor: pointer;
-}
-
-
-
-.Header > div > nav > ul,
-.Header > div > nav > ul > li > ul{
-  display: flex;
-  list-style: none;
-}
-
-.Header > div > nav > ul > li > svg{
-  display: contents;
-}
-
-.Header > div > nav > ul > li > svg{
-  height: max(15px,2.5vw);
-}
-
-.Header > div > nav > ul > li > ul > li > .link{
-  margin: max(5px,.7vw);
-  font-size: max(13px,2.5vw);
 }
 
 @media screen and (max-width: 380px){
@@ -114,32 +91,5 @@
 
   .Header > .contentLeft{
     flex-direction: row-reverse;
-  }
-
-  .Header > div > nav > ul > li > svg{
-    display: block;
-  }
-
-  .Header > div > nav > ul > li > ul{
-    display: none;
-    background-color: #000;
-    position: absolute;
-    top: max(50px,7vw);
-  }
-
-  .Header > div > nav > ul > li > ul > li{
-    padding: 5px;
-  }
-
-  .Header > div > nav > ul > li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: max(50px,7vw);
-  }
-
-  .Header > div > nav > ul > li:hover > ul{
-    display: block;
   }
 }
