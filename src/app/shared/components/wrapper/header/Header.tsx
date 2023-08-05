@@ -1,18 +1,14 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-import { useUsuarioLogado } from "../../hooks";
-import { IStateIcon } from "../../context";
-import './css/Header.css';
+import { IconUser } from "./iconuser/IconUser";
+import './Header.css';
 
 export const Header: React.FC = () => {
 
   const nav = useNavigate();
-  const { name, icon } = useUsuarioLogado();
-  const { userColor, userIcon } = icon as IStateIcon;
-
+  
   const [iconSearch, setIconSearch] = useState(true);
 
   const divSearch = useRef<HTMLDivElement>(null);
@@ -126,20 +122,11 @@ export const Header: React.FC = () => {
             />
           </nav>
 
-          <div>
-            <Link className='link' to='/entrar'>
-              <FontAwesomeIcon className='user' 
-              color='#fff' 
-              style={{
-                background: `linear-gradient(70deg, ${userColor[0]} 44%, ${userColor[1]})`
-              }} 
-              icon={userIcon as IconProp}/>
-              <p>{name}</p>
-            </Link>
-          </div>
+          <IconUser />
         </div>
       </header>
-
     </>
   );
 };
+
+// uyhuuyt

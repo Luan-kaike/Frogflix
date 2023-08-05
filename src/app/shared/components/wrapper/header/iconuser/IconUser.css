@@ -1,0 +1,81 @@
+.IconUser{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+.IconUser > .link > svg{
+  cursor: pointer;
+  width: max(20px,3vw);
+  padding: max(5px,.5vw);
+}
+
+.IconUser > .link > .user{
+  border-radius: 50%;
+}
+
+.IconUser > .link > svg:hover{
+  fill-opacity: 80%;
+}
+
+
+.IconUser > ul{
+  display: flex;
+  background-color: #000;
+  color: #fff;
+  list-style: none;
+  position: absolute;
+  display: none;
+  top: max(50px, calc(7vw - 3px));
+}
+
+.IconUser > ul > li > ul{
+  display: flex;
+  background-color: #000;
+  color: #fff;
+  list-style: none;
+  position: absolute;
+  display: none;
+}
+
+.IconUser > ul > li{
+  position: relative;
+}
+
+.IconUser > ul > li,
+.IconUser > ul > li > ul > li{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: max(30px, min(1rem, 7vw));
+  border-bottom: #000 1px solid;
+  padding: 5px;
+  width: max(40px, 7vw);
+  margin: max(5px, .7vw);
+  font-size: max(13px,2.5vw);
+}
+
+.IconUser > ul > li > ul > li > input{
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}.IconUser > ul > li > ul > li > input:hover{
+  filter: opacity(70%);
+}
+
+.IconUser > ul > li:hover > ul{
+  display: block;
+  opacity: 1;
+  right: 100%;
+  top: 0%;
+}
+
+.logged > .link{
+  pointer-events: none;
+}
+
+.logged:hover > ul{
+  display: block;
+}

@@ -6,11 +6,12 @@ import { getPaletteUser, DataBase } from "../helpers";
 interface IUsuarioLogadoData{
   name: string;
   icon: object;
+  logged: boolean;
 
-  logout: (name:string) => void;
+  logout: () => void;
   remove: (name:string) => void;
   signUp: (name: string, password: string) => void;
-  login: (name: string, password: string) => void
+  login: (name: string, password: string) => void;
 };
 interface IUsuarioLogadoProps{
   children: React.ReactNode;
@@ -26,7 +27,8 @@ export const UsuarioLogadoContext = createContext<IUsuarioLogadoData>({} as IUsu
 export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProps> = ({children}) => {
 
   const db = new DataBase();
-  const [name, setName] = useState('Entrar');
+  const [logged, setLogged] = useState(false)
+  const [name, setName] = useState('');
   const [icon, setIcon] = 
   useState<IStateIcon>({userIcon: 'circle-user', userColor: ['#000', '#000']});
 
@@ -43,11 +45,10 @@ export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProps> = ({children})
       return result.error;
     
     login(name, password);
-    
   };
 
-  const login = (name: string, password: string): {error: boolean, 
-    msg?: string }  => {
+  const login = (name: string, password: string): 
+  {error: boolean, msg?: string }  => {
     const result = db.login(name, password);
     if(result.error)
       return { error: true, msg: result.msg };
@@ -57,26 +58,32 @@ export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProps> = ({children})
     const newColor = result.colors;
     setName(name);
     setIcon({ userIcon: newIcon, userColor: newColor });
+    setLogged(true)
     return { error: false }
   };
 
-  const logout = (name:string) => {
-    
+  const logout = () => {
+    setLogged(false)
+    const defaultIconTempled = {userIcon: 'circle-user', userColor: ['#000', '#000']}
+    setIcon(defaultIconTempled)
+    setName('Entrar')
   };
 
   const remove = (name: string) => {
     db.remove(name)
+    logout()
   };
 
   return (
     <UsuarioLogadoContext.Provider value={
       {
+        logged: logged,
         name: name,
         icon: icon,
         logout: logout,
         signUp: signUp,
         login: login,
-        remove: remove
+        remove: remove,
       }
     }>
       {children}

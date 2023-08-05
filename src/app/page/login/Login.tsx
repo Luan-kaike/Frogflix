@@ -60,16 +60,16 @@ export const Login = (props: {singUp: boolean}) => {
 
         if(!id.trim())
           inputErrorDisplay(input, span, 'Esse campo é obrigatório');
-        else if(!/^[a-zA-ZÇ-ç]$/.test(id[0]))
-          inputErrorDisplay(input, span, 
-            'Esse campo não pode começar com números ou caracteres especiais');
-
+        else if(/[!@#$%&*()[\]{}|;:,.\/<>?]/.test(id))
+        inputErrorDisplay(input, span, 
+          'Seu nome não pode conter caracteres especiais');
         else if(localStorage.getItem(id) && props.singUp)
           inputErrorDisplay(input, span, 'Esse nome já está em uso');
         else if(!localStorage.getItem(id) && !props.singUp)
           inputErrorDisplay(input, span, 'Não existe uma conta com esse nome');
-        else if(id.length > 3 || 15 < id.length)
-          inputErrorDisplay(input, span, 'O nome não pode ser menor de 3 e maior de 15');
+        else if(id.trim().length < 3 || id.trim().length > 15)
+          inputErrorDisplay(input, span, 
+            'O nome não pode ser menor de 3 ou maior de 15');
         else
           removeInputErrorDisplay(input, span);
       };
@@ -88,10 +88,15 @@ export const Login = (props: {singUp: boolean}) => {
   }, [id, password]);
 
   const verificationInputs = useCallback(() => {
-    const verifsIdLength = (id.length > 3 && 15 < id.length)
-    if(!password.trim() || !id.trim() || verifsIdLength ||
-    (localStorage.getItem(id) && props.singUp) || 
-    (!localStorage.getItem(id) && !props.singUp)){
+    const verifsIdLength = (id.trim().length < 3 || id.trim().length > 15)
+    const verifsIfInputEmpty = (!password.trim() || !id.trim())
+    const verifsSpecialCharacter = /[!@#$%&*()[\]{}|;:,.\/<>?]/.test(id) 
+    const verifsIfLoginUserExist = (!localStorage.getItem(id) && !props.singUp)
+    const verifsIfSingUpNotExist = (localStorage.getItem(id) && props.singUp)
+
+    const verifsError = (verifsIfInputEmpty || verifsIdLength || verifsSpecialCharacter || verifsIfSingUpNotExist ||  verifsIfLoginUserExist)
+
+    if(verifsError){
       verificationInputsIncorrect();
       return;
     };

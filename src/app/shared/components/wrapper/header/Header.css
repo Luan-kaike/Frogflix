@@ -57,19 +57,16 @@
   flex-direction: row;
   align-items: center;
   gap: max(3px, 4vw);
-  margin-left: max(8px, 1vw);
-  margin-right: max(20px, calc(1vw + 12px));
+  margin-inline: max(15px, 4vw);
 }
 
-.Header > div > div > .link > svg{
-  cursor: pointer;
-  width: max(20px,3vw);
-  padding: max(5px,.5vw);
-}.Header > div > div > .link > .user{
-  border-radius: 50%;
-}.Header > div > div > .link > svg:hover{
-  fill-opacity: 80%;
+.Header > div > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
+
 
 .Header > div > div > .link > p{
   font-size: max(10px,2vw);
@@ -117,7 +114,6 @@
 
   .Header > .contentLeft{
     flex-direction: row-reverse;
-    padding-left: 5%;
   }
 
   .Header > div > nav > ul > li > svg{
