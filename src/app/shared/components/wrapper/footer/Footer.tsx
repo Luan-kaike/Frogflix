@@ -18,10 +18,10 @@ export const Footer: React.FC = () => {
       <ul>
         <li><h2>Sobre</h2></li>
         <li>
-          <a href="#" className="href">Documentação</a>
+          <a href="https://github.com/Luan-kaike/Frogflix#readme" className="href">Documentação</a>
         </li>
         <li>
-          <a href="#" className="href">Sobre mim</a>
+          <a href="/" className="href">Sobre mim</a>
         </li>
       </ul>
 
