@@ -10,9 +10,9 @@ Todos os icones foram pegos da biblioteca **Fontawesome**.
 
 ## Como iniciar
 
-Você pode iniciar esse projeto baixando-lo, entrando na pasta dele e iniciado-o  com o npm run start no promp de comando.
+Você pode iniciar esse projeto o baixando, entrando na pasta dele e o iniciado com o npm run start no promp de comando.
 
-ou se preferir pode acessar o [github page](luan-kaike.github.io/Frogflix/ "Frogflix"), onde você não precisará baixar nada.
+ou se preferir pode acessar o [github page desse projeto](luan-kaike.github.io/Frogflix/ "Frogflix"), onde você não precisará baixar nada.
 
 ## Sistema de pastas
 
